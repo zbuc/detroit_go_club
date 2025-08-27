@@ -1,4 +1,5 @@
 import {defineConfig} from 'sanity'
+import { dashboardTool } from "@sanity/dashboard"
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './sanity/schemas'
@@ -11,7 +12,7 @@ export default defineConfig({
   projectId: sanityConfig.projectId,
   dataset: sanityConfig.dataset,
 
-  plugins: [structureTool(), visionTool()],
+  plugins: [structureTool(), dashboardTool(), visionTool()],
 
   schema: {
     types: schemaTypes,
