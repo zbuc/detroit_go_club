@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "fly deploy",
+    "deploy": "fly console --dockerfile Dockerfile.builder -C \"/srv/deploy.sh\" --env=FLY_API_TOKEN=$(fly auth token)",
     "logs": "fly logs",
     "studio": "sanity dev",
     "studio:build": "sanity build",

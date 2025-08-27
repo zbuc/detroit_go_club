@@ -107,9 +107,11 @@ Configure:
 
 ## Deployment
 
-### Fly.io (Recommended)
+### Fly.io (Primary Method)
 
-1. Install the Fly CLI:
+This project is configured to deploy to Fly.io using an ephemeral builder pattern that securely handles build-time secrets.
+
+1. **Install the Fly CLI**:
    ```bash
    # macOS
    brew install flyctl
@@ -118,38 +120,35 @@ Configure:
    curl -L https://fly.io/install.sh | sh
    ```
 
-2. Sign up and authenticate:
+2. **Sign up and authenticate**:
    ```bash
    fly auth signup
    # or
    fly auth login
    ```
 
-3. Launch your app (first time):
+3. **Launch your app** (first time):
    ```bash
    fly launch
    ```
    
-   This will:
-   - Create a new app on Fly.io
-   - Generate a `fly.toml` configuration file
-   - Ask if you want to deploy immediately
+   This will create your app and generate the `fly.toml` configuration file.
 
-4. Set your environment variables:
+4. **Set your secrets**:
    ```bash
    fly secrets set NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
    fly secrets set NEXT_PUBLIC_SANITY_DATASET=production
    fly secrets set SANITY_API_TOKEN=your_token
    ```
 
-5. Deploy:
+5. **Deploy using ephemeral builder**:
    ```bash
-   npm run deploy
-   # or
-   fly deploy
+   fly console --dockerfile Dockerfile.builder -C "/srv/deploy.sh" --env=FLY_API_TOKEN=$(fly auth token)
    ```
+   
+   This deployment method uses Fly.io's [build secrets with ephemeral machines](https://fly.io/docs/apps/build-secrets/#automate-the-inclusion-of-build-secrets-using-an-ephemeral-machine) to securely inject environment variables during the build process.
 
-6. Open your app:
+6. **Open your app**:
    ```bash
    fly open
    ```
@@ -159,7 +158,7 @@ Your website will be available at the main URL, and the Sanity Studio will be ac
 ### Alternative: Vercel
 
 1. Push your code to GitHub
-2. Connect your repository to Vercel
+2. Connect your repository to Vercel  
 3. Add your environment variables in Vercel's dashboard
 4. Deploy!
 
