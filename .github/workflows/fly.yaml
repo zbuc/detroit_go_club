@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl console --dockerfile Dockerfile.builder -C "/srv/deploy.sh"
+      - run: flyctl console --dockerfile Dockerfile.builder -C "/srv/deploy.sh" --env=FLY_API_TOKEN=$(flyctl auth token)
         #   - run: fly console --dockerfile Dockerfile.builder -C "/srv/deploy.sh" --env=FLY_API_TOKEN=$(fly auth token)
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
