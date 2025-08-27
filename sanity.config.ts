@@ -11,6 +11,7 @@ export default defineConfig({
 
   projectId: sanityConfig.projectId,
   dataset: sanityConfig.dataset,
+  apiVersion: sanityConfig.apiVersion,
 
   plugins: [structureTool(), dashboardTool({}), visionTool()],
 
@@ -25,5 +26,16 @@ export default defineConfig({
     components: {
       // You can customize the studio here if needed
     },
+  },
+
+  // Document actions and badges
+  document: {
+    // Configure document actions if needed
+  },
+
+  // Tools configuration
+  tools: (prev, {schema}) => {
+    // You can filter or add tools here if needed
+    return prev
   },
 })
