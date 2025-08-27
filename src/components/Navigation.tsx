@@ -27,9 +27,6 @@ export default function Navigation() {
             >
               Instagram
             </a>
-            <Link href="/studio" className="text-blue-600 hover:text-blue-800 transition-colors font-medium">
-              Admin
-            </Link>
           </div>
         </div>
       </div>
