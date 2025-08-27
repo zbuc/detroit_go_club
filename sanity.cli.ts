@@ -5,7 +5,6 @@ export default defineCliConfig({
   api: {
     projectId: sanityConfig.projectId,
     dataset: sanityConfig.dataset,
-    apiVersion: sanityConfig.apiVersion,
   },
   /**
    * Enable auto-updates for studios.
