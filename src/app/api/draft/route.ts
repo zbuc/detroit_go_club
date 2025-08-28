@@ -1,31 +1,15 @@
 import { draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook'
 
-const secret = process.env.REVALIDATE_WEBHOOK_SECRET || ''
+const valid_secret = process.env.NEXT_PUBLIC_SANITY_API_READ_TOKEN || ''
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
   const slug = searchParams.get('slug')
-  const signature = req.headers.get(SIGNATURE_HEADER_NAME) || ''
-  const body = await req.text()
-
-  if (secret === '') {
-    console.log(`Secret unset, failing signature check`)
-    return new Response(`Webhook secret missing`, {
-      status: 401,
-    })
-  }
-
-  // Validate signature
-  if (!(await isValidSignature(body, signature, secret))) {
-    return new Response(`Invalid signature`, {
-      status: 401,
-    })
-  }
+  const secret = searchParams.get('secret')
 
   // Check the secret and next parameters
-  if (secret !== process.env.SANITY_API_READ_TOKEN) {
+  if (secret !== valid_secret) {
     return new Response('Invalid token', { status: 401 })
   }
 

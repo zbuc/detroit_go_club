@@ -21,6 +21,7 @@ export default [
       'node_modules/**',
       '.sanity/**',
       '**/*.config.js',
+      'next-env.d.ts',
     ],
   },
   ...compat.extends(

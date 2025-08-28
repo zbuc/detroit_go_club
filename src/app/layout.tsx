@@ -30,15 +30,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className={inter.className}>
         <Navigation />
         <main>{children}</main>
-        {isEnabled && (
-          <VisualEditing
-            refresh={async (payload: { source: string }) => {
-              if (payload.source === 'mutation') {
-                location.reload()
-              }
-            }}
-          />
-        )}
+        {isEnabled && <VisualEditing />}
         <SanityLive />
       </body>
     </html>
