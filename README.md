@@ -197,6 +197,26 @@ Your website will be available at the main URL, and the Sanity Studio will be ac
 
 Point your `detroitgo.club` domain to your hosting provider according to their DNS instructions.
 
+## Development
+
+### Type Generation
+
+When you modify Sanity schemas or Next.js routes, you need to regenerate types:
+
+```bash
+# Generate Next.js route types
+npx next typegen
+
+# Check types are correct
+npm run type-check
+```
+
+**When to regenerate types:**
+
+- After adding/modifying Sanity schema fields
+- After adding new routes or API endpoints
+- When seeing TypeScript errors about missing properties
+
 ## Contributing
 
 This is a club website. Members can contribute by:

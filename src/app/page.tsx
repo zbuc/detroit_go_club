@@ -102,20 +102,40 @@ export default async function Home() {
       </div>
 
       <div className="mt-12 text-center">
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-          <h3 className="text-xl font-semibold text-blue-900 mb-2">Follow Us on Instagram</h3>
-          <p className="text-blue-700 mb-4">
-            See when the next meetup is, check out photos from past events, and connect with fellow
-            Go enthusiasts!
-          </p>
-          <a
-            href={`https://instagram.com/${siteSettings?.instagramHandle?.replace('@', '') || 'detroit_go_club'}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors"
-          >
-            {siteSettings?.instagramHandle || '@detroit_go_club'}
-          </a>
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-blue-700">
+          <h3 className="text-xl font-semibold text-blue-900 mb-2">
+            {homepage?.instagramCalloutHeader ? (
+              <PortableText value={homepage.instagramCalloutHeader} />
+            ) : (
+              'Follow Us on Instagram'
+            )}
+          </h3>
+          {homepage?.instagramCallout ? (
+            <PortableText value={homepage.instagramCallout} />
+          ) : (
+            <p className="text-blue-700 mb-4">
+              See when the next meetup is, check out photos from past events, and connect with
+              fellow Go enthusiasts!
+            </p>
+          )}
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
+            <a
+              href={`https://instagram.com/${siteSettings?.instagramHandle?.replace('@', '') || 'detroit_go_club'}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors"
+            >
+              {siteSettings?.instagramHandle || '@detroit_go_club'}
+            </a>
+            <a
+              href={`https://baduk.club/club/detroit`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors"
+            >
+              baduk.club/club/detroit
+            </a>
+          </div>
         </div>
       </div>
     </div>

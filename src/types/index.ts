@@ -8,6 +8,8 @@ export interface Page {
   }
   isHomepage?: boolean
   welcomeMessage?: PortableTextBlock[]
+  instagramCallout?: PortableTextBlock[]
+  instagramCalloutHeader?: PortableTextBlock[]
   clubDescription?: PortableTextBlock[]
   gettingStarted?: PortableTextBlock[]
   content: PortableTextBlock[]

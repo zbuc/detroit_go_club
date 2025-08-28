@@ -13,6 +13,7 @@ export default {
         DEFAULT: {
           css: {
             maxWidth: 'none',
+            'white-space': 'pre-line',
           },
         },
       },

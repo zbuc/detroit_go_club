@@ -41,6 +41,30 @@ export default defineType({
       description: 'Homepage welcome message (only shown if this is the homepage)',
     }),
     defineField({
+      name: 'instagramCallout',
+      title: 'Instagram Callout',
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+        },
+      ],
+      hidden: ({ document }) => !document?.isHomepage,
+      description: 'Instagram callout message (only shown if this is the homepage)',
+    }),
+    defineField({
+      name: 'instagramCalloutHeader',
+      title: 'Instagram Callout Header',
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+        },
+      ],
+      hidden: ({ document }) => !document?.isHomepage,
+      description: 'Instagram callout message header (only shown if this is the homepage)',
+    }),
+    defineField({
       name: 'clubDescription',
       title: 'Club Description',
       type: 'array',
