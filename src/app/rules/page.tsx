@@ -1,6 +1,7 @@
 import { PortableText } from '@portabletext/react'
 import { sanityFetch } from '@/lib/sanity'
 import { Page } from '@/types'
+import { portableTextComponents } from '@/components/PortableTextComponents'
 
 async function getRulesPage(): Promise<Page | null> {
   try {
@@ -27,7 +28,7 @@ export default async function RulesPage() {
         </h1>
 
         {page?.content ? (
-          <PortableText value={page.content} />
+          <PortableText value={page.content} components={portableTextComponents} />
         ) : (
           <div className="space-y-6">
             <section>

@@ -1,6 +1,7 @@
 import { PortableText } from '@portabletext/react'
 import { sanityFetch } from '@/lib/sanity'
 import { SiteSettings, Page } from '@/types'
+import { portableTextComponents } from '@/components/PortableTextComponents'
 
 async function getHomepageData(): Promise<{
   homepage: Page | null
@@ -40,7 +41,7 @@ export default async function Home() {
 
         {homepage?.welcomeMessage ? (
           <div className="text-lg text-white-700 mb-8 prose prose-lg mx-auto">
-            <PortableText value={homepage.welcomeMessage} />
+            <PortableText value={homepage.welcomeMessage} components={portableTextComponents} />
           </div>
         ) : (
           <div className="text-lg text-white-700 mb-8 prose prose-lg mx-auto">
@@ -58,7 +59,7 @@ export default async function Home() {
 
           {homepage?.clubDescription ? (
             <div className="text-gray-700 prose">
-              <PortableText value={homepage.clubDescription} />
+              <PortableText value={homepage.clubDescription} components={portableTextComponents} />
             </div>
           ) : (
             <div className="text-gray-700 space-y-4">
@@ -81,7 +82,7 @@ export default async function Home() {
 
           {homepage?.gettingStarted ? (
             <div className="text-gray-700 prose">
-              <PortableText value={homepage.gettingStarted} />
+              <PortableText value={homepage.gettingStarted} components={portableTextComponents} />
             </div>
           ) : (
             <div className="text-gray-700 space-y-4">
@@ -105,13 +106,16 @@ export default async function Home() {
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-blue-700">
           <h3 className="text-xl font-semibold text-blue-900 mb-2">
             {homepage?.instagramCalloutHeader ? (
-              <PortableText value={homepage.instagramCalloutHeader} />
+              <PortableText
+                value={homepage.instagramCalloutHeader}
+                components={portableTextComponents}
+              />
             ) : (
               'Follow Us on Instagram'
             )}
           </h3>
           {homepage?.instagramCallout ? (
-            <PortableText value={homepage.instagramCallout} />
+            <PortableText value={homepage.instagramCallout} components={portableTextComponents} />
           ) : (
             <p className="text-blue-700 mb-4">
               See when the next meetup is, check out photos from past events, and connect with
