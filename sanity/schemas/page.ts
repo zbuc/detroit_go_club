@@ -22,6 +22,49 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'isHomepage',
+      title: 'Is Homepage',
+      type: 'boolean',
+      description: 'Mark this page as the homepage',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'welcomeMessage',
+      title: 'Welcome Message',
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+        },
+      ],
+      hidden: ({ document }) => !document?.isHomepage,
+      description: 'Homepage welcome message (only shown if this is the homepage)',
+    }),
+    defineField({
+      name: 'clubDescription',
+      title: 'Club Description',
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+        },
+      ],
+      hidden: ({ document }) => !document?.isHomepage,
+      description: 'About our club section (only shown if this is the homepage)',
+    }),
+    defineField({
+      name: 'gettingStarted',
+      title: 'Getting Started Section',
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+        },
+      ],
+      hidden: ({ document }) => !document?.isHomepage,
+      description: 'Getting started content for new members (only shown if this is the homepage)',
+    }),
+    defineField({
       name: 'content',
       title: 'Content',
       type: 'array',
@@ -59,11 +102,12 @@ export default defineType({
     select: {
       title: 'title',
       slug: 'slug',
+      isHomepage: 'isHomepage',
     },
     prepare(selection) {
-      const { title, slug } = selection
+      const { title, slug, isHomepage } = selection
       return {
-        title,
+        title: isHomepage ? `🏠 ${title}` : title,
         subtitle: slug?.current,
       }
     },

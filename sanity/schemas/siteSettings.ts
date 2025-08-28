@@ -12,26 +12,6 @@ export default defineType({
       initialValue: 'Detroit Go Club',
     }),
     defineField({
-      name: 'welcomeMessage',
-      title: 'Welcome Message',
-      type: 'array',
-      of: [
-        {
-          type: 'block',
-        },
-      ],
-    }),
-    defineField({
-      name: 'clubDescription',
-      title: 'Club Description',
-      type: 'array',
-      of: [
-        {
-          type: 'block',
-        },
-      ],
-    }),
-    defineField({
       name: 'instagramHandle',
       title: 'Instagram Handle',
       type: 'string',

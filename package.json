@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "dev:all": "concurrently \"npm run dev\" \"npm run studio\"",
     "build": "next build",
     "start": "next start",

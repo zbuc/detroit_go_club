@@ -23,12 +23,13 @@ export default defineConfig({
             select: {
               title: 'title',
               slug: 'slug.current',
+              isHomepage: 'isHomepage',
             },
-            resolve: (doc: { title?: string; slug?: { current?: string } } | null) => ({
+            resolve: (doc: { title?: string; slug?: { current?: string }; isHomepage?: boolean } | null) => ({
               locations: [
                 {
                   title: doc?.title || 'Untitled',
-                  href: `/${doc?.slug?.current || ''}`,
+                  href: doc?.isHomepage ? '/' : `/${doc?.slug?.current || ''}`,
                 },
               ],
             }),

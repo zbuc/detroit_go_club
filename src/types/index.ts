@@ -6,6 +6,10 @@ export interface Page {
   slug: {
     current: string
   }
+  isHomepage?: boolean
+  welcomeMessage?: PortableTextBlock[]
+  clubDescription?: PortableTextBlock[]
+  gettingStarted?: PortableTextBlock[]
   content: PortableTextBlock[]
   seo?: {
     metaTitle?: string
@@ -27,9 +31,6 @@ export interface Meetup {
 export interface SiteSettings {
   _id: string
   title: string
-  description?: string
-  welcomeMessage?: PortableTextBlock[]
-  clubDescription?: PortableTextBlock[]
   instagramHandle: string
   contactEmail?: string
   logo?: {
