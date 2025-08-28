@@ -63,9 +63,28 @@ Required environment variables:
 
 ### Content Types
 
-- **Page** - Static pages like rules
+- **Page** - Static pages like rules, with support for homepage-specific fields
 - **Meetup** - Event information with date, location, registration
-- **Site Settings** - Global configuration (welcome message, contact info, Instagram handle)
+- **Site Settings** - Global configuration (logo, Instagram handle)
+
+### Content Styling
+
+The site uses custom PortableText components for consistent content rendering:
+
+**File**: `src/components/PortableTextComponents.tsx`
+
+- **Bullet Lists**: Styled with `list-disc list-inside space-y-2 my-4`
+- **Numbered Lists**: Styled with `list-decimal list-inside space-y-2 my-4`
+- **List Items**: Consistent `text-gray-700` styling
+- **Paragraphs**: Proper spacing with `text-gray-700 mb-4`
+
+**Usage**: All PortableText components throughout the site use `components={portableTextComponents}` to ensure consistent styling. This includes:
+
+- Homepage content (`src/app/page.tsx`)
+- Rules page content (`src/app/rules/page.tsx`)
+- Any other pages using PortableText
+
+**Implementation**: Custom components override default PortableText rendering to apply Tailwind CSS classes directly, ensuring proper styling regardless of CMS content structure.
 
 ### Visual Editing Features
 

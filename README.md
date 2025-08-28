@@ -129,6 +129,16 @@ This project includes Sanity's visual editing features for a seamless content ed
 
 Create and edit pages like the rules page through Sanity Studio. The site will automatically fetch and display your content.
 
+### Content Styling
+
+The site uses custom PortableText components to ensure consistent styling across all content:
+
+- **Lists**: Bullet and numbered lists automatically receive proper styling (`list-disc list-inside space-y-2`)
+- **Paragraphs**: Consistent text color and spacing
+- **Line breaks**: Preserved in rich text content
+
+The custom components are located in `src/components/PortableTextComponents.tsx` and applied to all PortableText instances throughout the site.
+
 ### Meetups
 
 Add meetups with:
