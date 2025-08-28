@@ -8,7 +8,7 @@ export default function Navigation() {
           <Link href="/" className="text-sm sm:text-xl md:text-2xl font-bold text-gray-900">
             Detroit Go Club
           </Link>
-          
+
           <div className="flex space-x-8">
             <Link href="/" className="text-gray-700 hover:text-gray-900 transition-colors">
               Home
@@ -19,9 +19,9 @@ export default function Navigation() {
             <Link href="/calendar" className="text-gray-700 hover:text-gray-900 transition-colors">
               Calendar
             </Link>
-            <a 
-              href="https://instagram.com/detroit_go_club" 
-              target="_blank" 
+            <a
+              href="https://instagram.com/detroit_go_club"
+              target="_blank"
               rel="noopener noreferrer"
               className="text-gray-700 hover:text-gray-900 transition-colors"
             >

@@ -28,29 +28,33 @@ npm install
 ### 2. Set up Sanity CMS
 
 1. Create a new Sanity project at [sanity.io](https://sanity.io) or run:
+
    ```bash
    npx sanity@latest init --create-project "Detroit Go Club" --dataset production
    ```
 
 2. **Configure Sanity for both frontend and Studio:**
-   
+
    a. Create your environment file:
+
    ```bash
    cp .env.local.example .env.local
    ```
-   
+
    b. Fill in your Sanity credentials in `.env.local`:
+
    ```
    NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
    NEXT_PUBLIC_SANITY_DATASET=production
    SANITY_API_TOKEN=your_token
    ```
-   
+
    c. **Important:** Copy and configure the Sanity config:
+
    ```bash
    cp sanity/env.example.ts sanity/env.ts
    ```
-   
+
    d. Edit `sanity/env.ts` and replace `'your-project-id-here'` with your actual project ID
 
 ### 3. Start the Development Server
@@ -90,6 +94,7 @@ Create and edit pages like the rules page through Sanity Studio. The site will a
 ### Meetups
 
 Add meetups with:
+
 - Title and description
 - Date and time
 - Location
@@ -99,6 +104,7 @@ Add meetups with:
 ### Site Settings
 
 Configure:
+
 - Welcome message
 - Club description
 - Contact information
@@ -112,15 +118,17 @@ Configure:
 This project is configured to deploy to Fly.io using an ephemeral builder pattern that securely handles build-time secrets.
 
 1. **Install the Fly CLI**:
+
    ```bash
    # macOS
    brew install flyctl
-   
+
    # Linux/WSL
    curl -L https://fly.io/install.sh | sh
    ```
 
 2. **Sign up and authenticate**:
+
    ```bash
    fly auth signup
    # or
@@ -128,13 +136,15 @@ This project is configured to deploy to Fly.io using an ephemeral builder patter
    ```
 
 3. **Launch your app** (first time):
+
    ```bash
    fly launch
    ```
-   
+
    This will create your app and generate the `fly.toml` configuration file.
 
 4. **Set your secrets**:
+
    ```bash
    fly secrets set NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
    fly secrets set NEXT_PUBLIC_SANITY_DATASET=production
@@ -142,10 +152,11 @@ This project is configured to deploy to Fly.io using an ephemeral builder patter
    ```
 
 5. **Deploy using ephemeral builder**:
+
    ```bash
    fly console --dockerfile Dockerfile.builder -C "/srv/deploy.sh" --env=FLY_API_TOKEN=$(fly auth token)
    ```
-   
+
    This deployment method uses Fly.io's [build secrets with ephemeral machines](https://fly.io/docs/apps/build-secrets/#automate-the-inclusion-of-build-secrets-using-an-ephemeral-machine) to securely inject environment variables during the build process.
 
 6. **Open your app**:
@@ -158,7 +169,7 @@ Your website will be available at the main URL, and the Sanity Studio will be ac
 ### Alternative: Vercel
 
 1. Push your code to GitHub
-2. Connect your repository to Vercel  
+2. Connect your repository to Vercel
 3. Add your environment variables in Vercel's dashboard
 4. Deploy!
 
@@ -167,6 +178,7 @@ Your website will be available at the main URL, and the Sanity Studio will be ac
 ### For Fly.io
 
 1. Add your custom domain:
+
    ```bash
    fly certs create detroitgo.club
    fly certs create www.detroitgo.club
@@ -188,6 +200,7 @@ Point your `detroitgo.club` domain to your hosting provider according to their D
 ## Contributing
 
 This is a club website. Members can contribute by:
+
 - Adding content through Sanity CMS
 - Reporting issues
 - Suggesting improvements

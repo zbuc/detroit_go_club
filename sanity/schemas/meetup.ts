@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'meetup',
@@ -46,7 +46,7 @@ export default defineType({
       location: 'location',
     },
     prepare(selection) {
-      const {title, date, location} = selection
+      const { title, date, location } = selection
       return {
         title,
         subtitle: `${new Date(date).toLocaleDateString()} - ${location}`,
@@ -57,16 +57,12 @@ export default defineType({
     {
       title: 'Date, New',
       name: 'dateDesc',
-      by: [
-        {field: 'date', direction: 'desc'}
-      ]
+      by: [{ field: 'date', direction: 'desc' }],
     },
     {
       title: 'Date, Old',
       name: 'dateAsc',
-      by: [
-        {field: 'date', direction: 'asc'}
-      ]
-    }
-  ]
+      by: [{ field: 'date', direction: 'asc' }],
+    },
+  ],
 })

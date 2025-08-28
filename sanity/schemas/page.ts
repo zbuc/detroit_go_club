@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'page',
@@ -61,7 +61,7 @@ export default defineType({
       slug: 'slug',
     },
     prepare(selection) {
-      const {title, slug} = selection
+      const { title, slug } = selection
       return {
         title,
         subtitle: slug?.current,
