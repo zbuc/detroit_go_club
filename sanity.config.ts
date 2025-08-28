@@ -2,6 +2,7 @@ import {defineConfig} from 'sanity'
 import {dashboardTool} from "@sanity/dashboard"
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
+import {presentationTool} from 'sanity/presentation'
 import {schemaTypes} from './sanity/schemas'
 import {sanityConfig} from './sanity/env'
 
@@ -13,7 +14,63 @@ export default defineConfig({
   dataset: sanityConfig.dataset,
   apiVersion: sanityConfig.apiVersion,
 
-  plugins: [structureTool(), dashboardTool({}), visionTool()],
+  plugins: [
+    structureTool(),
+    presentationTool({
+      resolve: {
+        locations: {
+          page: {
+            select: {
+              title: 'title',
+              slug: 'slug.current',
+            },
+            resolve: (doc: { title?: string; slug?: { current?: string } }) => ({
+              locations: [
+                {
+                  title: doc?.title || 'Untitled',
+                  href: `/${doc?.slug}`,
+                },
+              ],
+            }),
+          },
+          meetup: {
+            select: {
+              title: 'title',
+            },
+            resolve: (doc: { title?: string }) => ({
+              locations: [
+                {
+                  title: doc?.title || 'Untitled',
+                  href: `/calendar`,
+                },
+              ],
+            }),
+          },
+          siteSettings: {
+            select: {
+              title: 'title',
+            },
+            resolve: () => ({
+              locations: [
+                {
+                  title: 'Home',
+                  href: `/`,
+                },
+              ],
+            }),
+          },
+        },
+      },
+      previewUrl: {
+        draftMode: {
+          enable: '/api/draft',
+          disable: '/api/disable-draft',
+        },
+      },
+    }),
+    dashboardTool({}),
+    visionTool(),
+  ],
 
   schema: {
     types: schemaTypes,

@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { draftMode } from 'next/headers'
 import Navigation from '@/components/Navigation'
+import { VisualEditing } from 'next-sanity'
+import { SanityLive } from '@/lib/sanity'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -19,12 +22,24 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const { isEnabled } = await draftMode()
+
   return (
     <html lang="en">
       <body className={inter.className}>
         <Navigation />
         <main>{children}</main>
+        {isEnabled && (
+          <VisualEditing
+            refresh={async (payload: { source: string }) => {
+              if (payload.source === 'mutation') {
+                location.reload()
+              }
+            }}
+          />
+        )}
+        <SanityLive />
       </body>
     </html>
   )

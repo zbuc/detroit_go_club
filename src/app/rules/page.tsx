@@ -1,12 +1,15 @@
 import { PortableText } from '@portabletext/react'
-import { getClient } from '@/lib/sanity'
+import { sanityFetch } from '@/lib/sanity'
 import { Page } from '@/types'
 
 async function getRulesPage(): Promise<Page | null> {
   try {
     const query = `*[_type == "page" && slug.current == "rules"][0]`
-    const page = await getClient().fetch(query)
-    return page
+    const { data } = await sanityFetch({
+      query,
+      tags: ['page'],
+    })
+    return data
   } catch (error) {
     console.error('Failed to fetch rules page:', error)
     return null

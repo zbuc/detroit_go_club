@@ -1,12 +1,15 @@
 import { PortableText } from '@portabletext/react'
-import { getClient } from '@/lib/sanity'
+import { sanityFetch } from '@/lib/sanity'
 import { SiteSettings } from '@/types'
 
 async function getSiteSettings(): Promise<SiteSettings | null> {
   try {
     const query = `*[_type == "siteSettings"][0]`
-    const settings = await getClient().fetch(query)
-    return settings
+    const { data } = await sanityFetch({
+      query,
+      tags: ['siteSettings'],
+    })
+    return data
   } catch (error) {
     console.error('Failed to fetch site settings:', error)
     return null

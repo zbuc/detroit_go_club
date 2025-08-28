@@ -1,13 +1,16 @@
 import { PortableText } from '@portabletext/react'
-import { getClient } from '@/lib/sanity'
+import { sanityFetch } from '@/lib/sanity'
 import { Meetup } from '@/types'
 import { format, isPast } from 'date-fns'
 
 async function getMeetups(): Promise<Meetup[]> {
   try {
     const query = `*[_type == "meetup"] | order(date desc)`
-    const meetups = await getClient().fetch(query)
-    return meetups
+    const { data } = await sanityFetch({
+      query,
+      tags: ['meetup'],
+    })
+    return data
   } catch (error) {
     console.error('Failed to fetch meetups:', error)
     return []
