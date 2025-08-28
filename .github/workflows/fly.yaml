@@ -3,6 +3,20 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'src/**'
+      - 'sanity/**'
+      - 'package*.json'
+      - 'next.config.js'
+      - 'tailwind.config.ts'
+      - 'tsconfig.json'
+      - 'postcss.config.js'
+      - 'eslint.config.js'
+      - 'Dockerfile*'
+      - 'sanity.cli.ts'
+      - 'sanity.config.ts'
+      - 'fly.toml'
+      - '.env.local.example'
 jobs:
   lint:
     name: Lint & Type Check
