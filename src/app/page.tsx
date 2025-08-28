@@ -34,16 +34,16 @@ export default async function Home() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">
+        <h1 className="text-4xl font-bold text-white-900 mb-4">
           {homepage?.title || 'Welcome to the Detroit Go Club'}
         </h1>
 
         {homepage?.welcomeMessage ? (
-          <div className="text-lg text-gray-700 mb-8 prose prose-lg mx-auto">
+          <div className="text-lg text-white-700 mb-8 prose prose-lg mx-auto">
             <PortableText value={homepage.welcomeMessage} />
           </div>
         ) : (
-          <div className="text-lg text-gray-700 mb-8 prose prose-lg mx-auto">
+          <div className="text-lg text-white-700 mb-8 prose prose-lg mx-auto">
             <p>
               Welcome to the Detroit Go Club! Join us for weekly games, friendly tournaments, and a
               community dedicated to the ancient and strategic game of Go.
