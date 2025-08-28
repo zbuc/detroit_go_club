@@ -24,11 +24,11 @@ export default defineConfig({
               title: 'title',
               slug: 'slug.current',
             },
-            resolve: (doc: { title?: string; slug?: { current?: string } }) => ({
+            resolve: (doc: { title?: string; slug?: { current?: string } } | null) => ({
               locations: [
                 {
                   title: doc?.title || 'Untitled',
-                  href: `/${doc?.slug}`,
+                  href: `/${doc?.slug?.current || ''}`,
                 },
               ],
             }),
@@ -37,7 +37,7 @@ export default defineConfig({
             select: {
               title: 'title',
             },
-            resolve: (doc: { title?: string }) => ({
+            resolve: (doc: { title?: string } | null) => ({
               locations: [
                 {
                   title: doc?.title || 'Untitled',

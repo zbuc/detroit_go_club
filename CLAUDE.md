@@ -77,3 +77,5 @@ Required environment variables:
 ### Deployment Architecture
 
 Uses Fly.io with ephemeral builder pattern for secure build-time secrets handling. The `Dockerfile.builder` creates a temporary machine that injects environment variables during build, then deploys the compiled app.
+
+- all code proposed by Claude must pass both `npm run lint` and `npm run type-check`
