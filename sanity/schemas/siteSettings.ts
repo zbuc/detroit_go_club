@@ -12,11 +12,6 @@ export default defineType({
       initialValue: 'Detroit Go Club',
     }),
     defineField({
-      name: 'description',
-      title: 'Site Description',
-      type: 'text',
-    }),
-    defineField({
       name: 'welcomeMessage',
       title: 'Welcome Message',
       type: 'array',
