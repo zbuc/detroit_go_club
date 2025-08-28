@@ -3,9 +3,8 @@ import { revalidatePath } from 'next/cache'
 
 const secret = process.env.REVERIFY_WEBHOOK_SECRET || ''
 
-async function handler(req) {
-  const signature = req.headers[SIGNATURE_HEADER_NAME];
-  // const body = await readBody(req) // Read the body into a string
+async function handler(req: Request) {
+  const signature = req.headers.get(SIGNATURE_HEADER_NAME) || '';
   const body = await req.text()
 
 
@@ -49,7 +48,7 @@ export const config = {
   },
 }
 
-async function readBody(readable) {
+async function readBody(readable: string) {
   const chunks = []
   console.log(typeof readable)
   console.log(readable)
