@@ -1,7 +1,7 @@
 import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook'
 import { revalidatePath } from 'next/cache'
 
-const secret = process.env.REVERIFY_WEBHOOK_SECRET || ''
+const secret = process.env.REVALIDATE_WEBHOOK_SECRET || ''
 
 async function handler(req: Request) {
   const signature = req.headers.get(SIGNATURE_HEADER_NAME) || ''
