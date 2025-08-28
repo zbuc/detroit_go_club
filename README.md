@@ -242,6 +242,24 @@ Your website will be available at the main URL, and the Sanity Studio will be ac
 3. Add your environment variables in Vercel's dashboard
 4. Deploy!
 
+### Rotating Encryption Keys
+
+Since fly.io may spread the application across different machine instances due
+to being on-demand, client-server encryption can fail resulting in a glitchy Studio
+experience.
+
+The solution is to [overwrite the random encryption keys](https://nextjs.org/docs/app/guides/data-security#overwriting-encryption-keys-advanced) with a key defined in an environment variable.
+
+The key [may be generated](https://github.com/vercel/next.js/issues/75541#issuecomment-2985732241) in the following way:
+
+`node -e "const {randomBytes, createCipheriv} = require('crypto'); const secret = randomBytes(32); const aesKey = randomBytes(32); const iv = randomBytes(12); const c = createCipheriv('aes-256-gcm', aesKey, iv); const encrypted = Buffer.concat([c.update(secret), c.final()]); const tag = c.getAuthTag(); console.log(Buffer.concat([iv, tag, encrypted]).toString('base64'))"`
+
+And then set the `NEXT_SERVER_ACTIONS_ENCRYPTION_KEY` environment variable on fly.io.
+
+A redeploy must be triggered for the environment variable change to take place.
+
+You should adhere to regular secret rotation for this key.
+
 ## Domain Setup
 
 ### For Fly.io
