@@ -69,13 +69,44 @@ Required environment variables:
 
 ### Visual Editing Features
 
-- **Draft Mode**: Enable via `/api/draft?secret=<token>&slug=<path>` to see unpublished content
-- **Presentation Tool**: Visual editing interface in Sanity Studio with live preview
+The project includes full visual editing support with Sanity's Presentation tool:
+
+- **Draft Mode**: Enable via `/api/draft-mode/enable` with proper token validation
+- **Presentation Tool**: Visual editing interface in Sanity Studio with live preview at `/studio`
 - **Content Overlays**: Clickable overlays on content when in draft mode for direct editing
 - **Live Updates**: Real-time content synchronization using `SanityLive` component
+- **Route Integration**: Homepage (`/`), calendar (`/calendar`), and pages route correctly in Presentation tool
+- **Token Security**: Uses proper viewer token validation for secure draft mode access
+
+**Setup Requirements:**
+
+- `SANITY_API_READ_TOKEN` must be a valid Sanity API token starting with `sk`
+- `NEXT_PUBLIC_SANITY_API_READ_TOKEN` for client-side visual editing
+- `NEXT_PUBLIC_SANITY_STUDIO_URL` configured for overlay targeting
 
 ### Deployment Architecture
 
 Uses Fly.io with ephemeral builder pattern for secure build-time secrets handling. The `Dockerfile.builder` creates a temporary machine that injects environment variables during build, then deploys the compiled app.
+
+### GitHub Actions CI/CD
+
+The project uses GitHub Actions for automated deployment:
+
+**Workflow: `.github/workflows/fly.yaml`**
+
+- **Triggers**: Only on pushes to `main` branch when application code changes
+- **Smart Filtering**: Excludes documentation files (README.md, CLAUDE.md) to prevent unnecessary deploys
+- **Two-stage Process**:
+  1. **Lint & Type Check**: ESLint, TypeScript, and Prettier validation
+  2. **Deploy**: Automated deployment to Fly.io using ephemeral builder
+
+**Monitored Files**:
+
+- `src/**` - Application source code
+- `sanity/**` - CMS schemas and configuration
+- Configuration files (package.json, next.config.js, tailwind.config.ts, etc.)
+- Deployment files (Dockerfile\*, fly.toml)
+
+**Environment**: Requires `FLY_API_TOKEN` secret configured in GitHub repository settings.
 
 - all code proposed by Claude must pass both `npm run lint` and `npm run type-check`

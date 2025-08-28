@@ -9,6 +9,7 @@ A modern website for the Detroit Go Club built with Next.js and Sanity CMS.
 - **Calendar**: Historic and future meetup listings
 - **Instagram Integration**: Direct links to @detroit_go_club
 - **Sanity CMS**: Easy content management for club organizers
+- **Visual Editing**: Live preview and click-to-edit functionality in Sanity Studio
 
 ## Tech Stack
 
@@ -47,6 +48,11 @@ npm install
    NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
    NEXT_PUBLIC_SANITY_DATASET=production
    SANITY_API_TOKEN=your_token
+
+   # For visual editing (optional)
+   SANITY_API_READ_TOKEN=your_read_token
+   NEXT_PUBLIC_SANITY_API_READ_TOKEN=your_read_token
+   NEXT_PUBLIC_SANITY_STUDIO_URL=http://localhost:3000/studio
    ```
 
    c. **Important:** Copy and configure the Sanity config:
@@ -85,6 +91,38 @@ npm run studio
 
 **Production Studio:** Once deployed, your Sanity Studio will be available at `https://your-app.fly.dev/studio` for content management.
 
+## Visual Editing
+
+This project includes Sanity's visual editing features for a seamless content editing experience:
+
+### Features
+
+- **Live Preview**: See content changes in real-time while editing
+- **Click-to-Edit**: Click directly on content in the preview to edit it
+- **Draft Mode**: Preview unpublished content before going live
+- **Presentation Tool**: Full-featured editing interface within Sanity Studio
+
+### Setup for Visual Editing
+
+1. **Create a Viewer API Token** in your Sanity project dashboard
+2. **Add to environment variables**:
+   ```
+   SANITY_API_READ_TOKEN=your_viewer_token
+   NEXT_PUBLIC_SANITY_API_READ_TOKEN=your_viewer_token
+   NEXT_PUBLIC_SANITY_STUDIO_URL=http://localhost:3000/studio
+   ```
+3. **Use the Presentation tool** in Sanity Studio at `/studio`
+
+### Using Visual Editing
+
+1. Open Sanity Studio (`/studio`)
+2. Click the "Presentation" tab
+3. Navigate to any page to see the live preview
+4. Click on content areas to edit them directly
+5. Changes appear instantly in the preview
+
+**Note:** Visual editing works for all content types including pages, meetups, and site settings.
+
 ## Content Management
 
 ### Pages
@@ -113,7 +151,28 @@ Configure:
 
 ## Deployment
 
-### Fly.io (Primary Method)
+### Automated Deployment (Recommended)
+
+The project uses GitHub Actions for automatic deployment to Fly.io:
+
+**How it works:**
+
+- Push changes to the `main` branch
+- GitHub Actions automatically runs tests (lint, type-check, formatting)
+- If tests pass, deploys to Fly.io using secure ephemeral builder
+- Only deploys when application code changes (excludes README.md, documentation)
+
+**Setup GitHub Actions:**
+
+1. Fork/clone this repository to your GitHub account
+2. Set up `FLY_API_TOKEN` secret in your GitHub repository settings
+3. Push to `main` branch to trigger automatic deployment
+
+### Manual Deployment
+
+For manual deployment or first-time setup:
+
+#### Fly.io (Primary Method)
 
 This project is configured to deploy to Fly.io using an ephemeral builder pattern that securely handles build-time secrets.
 
