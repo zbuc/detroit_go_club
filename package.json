@@ -10,6 +10,7 @@
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "type-check": "tsc --noEmit",
     "prepare": "husky",
     "deploy": "fly console --dockerfile Dockerfile.builder -C \"/srv/deploy.sh\" --env=FLY_API_TOKEN=$(fly auth token)",
     "logs": "fly logs",
@@ -49,11 +50,13 @@
     "postcss": "^8.0.0",
     "prettier": "^3.0.0",
     "tailwindcss": "^4.1.12",
+    "tsc-files": "^1.1.4",
     "typescript": "^5.0.0"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix"
+      "eslint --fix",
+      "bash -c 'tsc --noEmit'"
     ],
     "*.{js,jsx,ts,tsx,json,css,md}": [
       "prettier --write"
