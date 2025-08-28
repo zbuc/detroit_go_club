@@ -22,7 +22,7 @@ export default async function RulesPage() {
         <h1 className="text-4xl font-bold text-gray-900 mb-8">
           {page?.title || 'Go Rules & Guidelines'}
         </h1>
-        
+
         {page?.content ? (
           <PortableText value={page.content} />
         ) : (
@@ -30,13 +30,13 @@ export default async function RulesPage() {
             <section>
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">Basic Rules of Go</h2>
               <p className="text-gray-700 mb-4">
-                Go is played on a grid of intersecting lines. The standard board size is 19×19, 
+                Go is played on a grid of intersecting lines. The standard board size is 19×19,
                 though beginners often start with smaller boards (13×13 or 9×9).
               </p>
-              
+
               <h3 className="text-xl font-semibold text-gray-800 mb-3">Objective</h3>
               <p className="text-gray-700 mb-4">
-                The goal is to control more territory than your opponent by surrounding empty 
+                The goal is to control more territory than your opponent by surrounding empty
                 intersections with your stones.
               </p>
 
@@ -51,11 +51,11 @@ export default async function RulesPage() {
 
             <section>
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">Club Guidelines</h2>
-              
+
               <h3 className="text-xl font-semibold text-gray-800 mb-3">Etiquette</h3>
               <ul className="list-disc list-inside text-gray-700 space-y-2 mb-4">
                 <li>Bow or acknowledge your opponent before and after games</li>
-                <li>Play at a reasonable pace - be considerate of your opponent's time</li>
+                <li>Play at a reasonable pace - be considerate of your opponent&apos;s time</li>
                 <li>Keep conversation quiet during games to avoid disturbing others</li>
                 <li>Help newer players learn the rules and basic strategies</li>
               </ul>
@@ -82,12 +82,21 @@ export default async function RulesPage() {
               <p className="text-gray-700 mb-4">
                 New to Go? Here are some great resources to get you started:
               </p>
-              
+
               <ul className="list-disc list-inside text-gray-700 space-y-2">
-                <li><strong>Online:</strong> Online Go Server (OGS), KGS Go Server</li>
-                <li><strong>Books:</strong> "The Complete Beginner's Guide to Go" by Cho Chikun</li>
-                <li><strong>Apps:</strong> SmartGo, Go Books, Tsumego Pro</li>
-                <li><strong>Videos:</strong> In Sente YouTube channel, Nick Sibicky Go Lectures</li>
+                <li>
+                  <strong>Online:</strong> Online Go Server (OGS), KGS Go Server
+                </li>
+                <li>
+                  <strong>Books:</strong> &ldquo;The Complete Beginner&apos;s Guide to Go&rdquo; by
+                  Cho Chikun
+                </li>
+                <li>
+                  <strong>Apps:</strong> SmartGo, Go Books, Tsumego Pro
+                </li>
+                <li>
+                  <strong>Videos:</strong> In Sente YouTube channel, Nick Sibicky Go Lectures
+                </li>
               </ul>
             </section>
           </div>

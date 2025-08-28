@@ -19,10 +19,8 @@ export default async function Home() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          Welcome to the Detroit Go Club
-        </h1>
-        
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">Welcome to the Detroit Go Club</h1>
+
         {settings?.welcomeMessage ? (
           <div className="text-lg text-gray-700 mb-8 prose prose-lg mx-auto">
             <PortableText value={settings.welcomeMessage} />
@@ -30,8 +28,8 @@ export default async function Home() {
         ) : (
           <div className="text-lg text-gray-700 mb-8 prose prose-lg mx-auto">
             <p>
-              Welcome to the Detroit Go Club! Join us for weekly games, friendly tournaments, 
-              and a community dedicated to the ancient and strategic game of Go.
+              Welcome to the Detroit Go Club! Join us for weekly games, friendly tournaments, and a
+              community dedicated to the ancient and strategic game of Go.
             </p>
           </div>
         )}
@@ -39,10 +37,8 @@ export default async function Home() {
 
       <div className="grid md:grid-cols-2 gap-8">
         <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-            About Our Club
-          </h2>
-          
+          <h2 className="text-2xl font-semibold text-gray-900 mb-4">About Our Club</h2>
+
           {settings?.clubDescription ? (
             <div className="text-gray-700 prose">
               <PortableText value={settings.clubDescription} />
@@ -50,30 +46,28 @@ export default async function Home() {
           ) : (
             <div className="text-gray-700 space-y-4">
               <p>
-                The Detroit Go Club is a welcoming community for players of all skill levels. 
-                Whether you're a complete beginner or an experienced player, you'll find 
+                The Detroit Go Club is a welcoming community for players of all skill levels.
+                Whether you&apos;re a complete beginner or an experienced player, you&apos;ll find
                 friendly games and opportunities to improve your Go skills.
               </p>
               <p>
-                We meet regularly for casual games, study sessions, and occasional tournaments. 
-                Our members range from curious newcomers to dan-level players, creating a 
-                rich learning environment for everyone.
+                We meet regularly for casual games, study sessions, and occasional tournaments. Our
+                members range from curious newcomers to dan-level players, creating a rich learning
+                environment for everyone.
               </p>
             </div>
           )}
         </div>
 
         <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-            Getting Started
-          </h2>
-          
+          <h2 className="text-2xl font-semibold text-gray-900 mb-4">Getting Started</h2>
+
           <div className="text-gray-700 space-y-4">
             <p>
-              New to Go? No problem! We welcome beginners and are happy to teach 
-              the rules and basic strategies.
+              New to Go? No problem! We welcome beginners and are happy to teach the rules and basic
+              strategies.
             </p>
-            
+
             <ul className="list-disc list-inside space-y-2">
               <li>Check our calendar for upcoming meetups</li>
               <li>Follow us on Instagram for updates and photos</li>
@@ -86,15 +80,13 @@ export default async function Home() {
 
       <div className="mt-12 text-center">
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-          <h3 className="text-xl font-semibold text-blue-900 mb-2">
-            Follow Us on Instagram
-          </h3>
+          <h3 className="text-xl font-semibold text-blue-900 mb-2">Follow Us on Instagram</h3>
           <p className="text-blue-700 mb-4">
             Stay updated with our latest games, events, and community highlights
           </p>
-          <a 
-            href="https://instagram.com/detroit_go_club" 
-            target="_blank" 
+          <a
+            href="https://instagram.com/detroit_go_club"
+            target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors"
           >

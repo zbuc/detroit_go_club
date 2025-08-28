@@ -34,7 +34,7 @@ export default defineConfig({
   },
 
   // Tools configuration
-  tools: (prev, {schema}) => {
+  tools: (prev) => {
     // You can filter or add tools here if needed
     return prev
   },

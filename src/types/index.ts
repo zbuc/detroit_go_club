@@ -1,10 +1,12 @@
+import { PortableTextBlock } from '@portabletext/types'
+
 export interface Page {
   _id: string
   title: string
   slug: {
     current: string
   }
-  content: any[]
+  content: PortableTextBlock[]
   seo?: {
     metaTitle?: string
     metaDescription?: string
@@ -16,7 +18,7 @@ export interface Meetup {
   title: string
   date: string
   location?: string
-  description?: any[]
+  description?: PortableTextBlock[]
   maxParticipants?: number
   registrationUrl?: string
   isCompleted: boolean
@@ -26,9 +28,15 @@ export interface SiteSettings {
   _id: string
   title: string
   description?: string
-  welcomeMessage?: any[]
-  clubDescription?: any[]
+  welcomeMessage?: PortableTextBlock[]
+  clubDescription?: PortableTextBlock[]
   instagramHandle: string
   contactEmail?: string
-  logo?: any
+  logo?: {
+    _type: 'image'
+    asset: {
+      _ref: string
+      _type: 'reference'
+    }
+  }
 }
