@@ -29,18 +29,6 @@ export default defineType({
       initialValue: false,
     }),
     defineField({
-      name: 'welcomeMessage',
-      title: 'Welcome Message',
-      type: 'array',
-      of: [
-        {
-          type: 'block',
-        },
-      ],
-      hidden: ({ document }) => !document?.isHomepage,
-      description: 'Homepage welcome message (only shown if this is the homepage)',
-    }),
-    defineField({
       name: 'instagramCallout',
       title: 'Instagram Callout',
       type: 'array',
