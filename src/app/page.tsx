@@ -38,19 +38,6 @@ export default async function Home() {
         <h1 className="text-4xl font-bold text-white-900 mb-4">
           {homepage?.title || 'Welcome to the Detroit Go Club'}
         </h1>
-
-        {homepage?.welcomeMessage ? (
-          <div className="text-lg text-white-700 mb-8 prose prose-lg mx-auto">
-            <PortableText value={homepage.welcomeMessage} components={portableTextComponents} />
-          </div>
-        ) : (
-          <div className="text-lg text-white-700 mb-8 prose prose-lg mx-auto">
-            <p>
-              Welcome to the Detroit Go Club! Join us for weekly games, friendly tournaments, and a
-              community dedicated to the ancient and strategic game of Go.
-            </p>
-          </div>
-        )}
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
