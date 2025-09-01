@@ -38,6 +38,14 @@ export default defineType({
         hotspot: true,
       },
     }),
+    defineField({
+      name: 'background',
+      title: 'Background Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+    }),
   ],
   preview: {
     select: {

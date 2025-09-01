@@ -35,7 +35,8 @@ async function getSiteSettings() {
     const query = `*[_type == "siteSettings"][0]{
       businessInfo,
       socialMedia,
-      favicon
+      favicon,
+      background
     }`
     const { data } = await sanityFetch({
       query,
@@ -57,6 +58,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const faviconImageUrl = settings?.favicon
     ? builder.image(settings?.favicon).url()?.toString()
     : '/favicon.svg'
+  const backgroundImageUrl = settings?.background
+    ? builder.image(settings?.background).url()?.toString()
+    : undefined
 
   return (
     <html lang="en">
@@ -70,7 +74,17 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <ConditionalNavigation>
           <Navigation />
         </ConditionalNavigation>
-        <main>{children}</main>
+        {backgroundImageUrl && (
+          <main
+            style={{
+              backgroundImage: `linear-gradient(to top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%), url('${backgroundImageUrl}')`,
+            }}
+            className={`bg-cover bg-center bg-repeat w-full`}
+          >
+            {children}
+          </main>
+        )}
+        {!backgroundImageUrl && <main>{children}</main>}
         {isEnabled && <VisualEditing />}
         <SanityLive />
       </body>

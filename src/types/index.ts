@@ -49,4 +49,11 @@ export interface SiteSettings {
       _type: 'reference'
     }
   }
+  background?: {
+    _type: 'image'
+    asset: {
+      _ref: string
+      _type: 'reference'
+    }
+  }
 }
