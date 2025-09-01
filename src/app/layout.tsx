@@ -9,7 +9,7 @@ import { ConditionalStyles } from '@/components/ConditionalStyles'
 import imageUrlBuilder from '@sanity/image-url'
 import './globals.css'
 import StructuredData from '@/components/StructuredData'
-import siteSettings from 'sanity/schemas/siteSettings'
+import siteSettings from '../../sanity/schemas/siteSettings'
 import { generateWebSiteSchema } from '@/lib/structured-data'
 
 const inter = Inter({ subsets: ['latin'] })
