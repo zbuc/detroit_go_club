@@ -30,6 +30,14 @@ export default defineType({
         hotspot: true,
       },
     }),
+    defineField({
+      name: 'favicon',
+      title: 'Favicon',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+    }),
   ],
   preview: {
     select: {

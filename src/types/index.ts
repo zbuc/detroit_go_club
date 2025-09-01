@@ -42,4 +42,11 @@ export interface SiteSettings {
       _type: 'reference'
     }
   }
+  favicon?: {
+    _type: 'image'
+    asset: {
+      _ref: string
+      _type: 'reference'
+    }
+  }
 }

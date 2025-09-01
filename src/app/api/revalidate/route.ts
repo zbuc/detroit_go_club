@@ -23,14 +23,36 @@ async function handler(req: Request) {
 
   try {
     const jsonBody = JSON.parse(body)
-    const pathToRevalidate = jsonBody.slug.current
+    console.log('Webhook payload:', JSON.stringify(jsonBody, null, 2))
 
-    console.log(`===== Revalidating: ${pathToRevalidate}`)
+    // Handle different document types
+    const pathsToRevalidate: string[] = []
 
-    // await res.revalidate(pathToRevalidate);
-    revalidatePath(pathToRevalidate)
+    if (jsonBody._type === 'siteSettings') {
+      // Site settings affect all pages
+      pathsToRevalidate.push('/calendar')
+      pathsToRevalidate.push('/rules')
+      pathsToRevalidate.push('/contact')
+    } else if (jsonBody.slug?.current) {
+      // Fallback for other document types with slugs
+      pathsToRevalidate.push(`/${jsonBody.slug.current}`)
+    } else {
+      // No specific path, revalidate homepage
+      pathsToRevalidate.push('/')
+    }
 
-    return Response.json({ revalidated: true })
+    console.log(`===== Revalidating paths:`, pathsToRevalidate)
+
+    // Revalidate all relevant paths
+    for (const path of pathsToRevalidate) {
+      revalidatePath(path)
+    }
+
+    return Response.json({
+      revalidated: true,
+      paths: pathsToRevalidate,
+      documentType: jsonBody._type,
+    })
   } catch (err) {
     // Could not revalidate. The stale page will continue to be shown until
     // this issue is fixed.
