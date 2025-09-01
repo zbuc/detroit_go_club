@@ -20,7 +20,6 @@ const outfit = Outfit({
 })
 
 import StructuredData from '@/components/StructuredData'
-import siteSettings from 'sanity/schemas/siteSettings'
 import { generateWebSiteSchema } from '@/lib/structured-data'
 
 const builder = imageUrlBuilder(client)
@@ -61,7 +60,7 @@ async function getSiteSettings() {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
 
-  const structuredData = [generateWebSiteSchema(), siteSettings].filter(Boolean)
+  const structuredData = [generateWebSiteSchema()].filter(Boolean)
 
   const settings = await getSiteSettings()
   const faviconImageUrl = settings?.favicon

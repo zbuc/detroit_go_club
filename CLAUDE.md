@@ -129,3 +129,9 @@ The project uses GitHub Actions for automated deployment:
 **Environment**: Requires `FLY_API_TOKEN` secret configured in GitHub repository settings.
 
 - all code proposed by Claude must pass both `npm run lint` and `npm run type-check`
+
+- Do not use defineLive outside of React Server Components
+- In priority order try to search for library calls in Sanity CMS, Tailwind CSS, NextJS, React, and then other libraries
+- Use pure CSS solutions as much as possible
+- Favor adding classNames to tags in tsx files to editing the CSS file
+- The `any` type should not be used in Typescript. Use correct types otherwise linting will fail.

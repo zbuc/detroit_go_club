@@ -90,6 +90,9 @@ export default defineType({
             hotspot: true,
           },
         },
+        {
+          type: 'sgf',
+        },
       ],
     }),
     defineField({

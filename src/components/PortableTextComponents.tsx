@@ -1,4 +1,5 @@
 import { PortableTextComponents } from '@portabletext/react'
+import SGFViewer from './SGFViewer'
 
 export const portableTextComponents: PortableTextComponents = {
   list: {
@@ -13,5 +14,17 @@ export const portableTextComponents: PortableTextComponents = {
   },
   block: {
     normal: ({ children }) => <p className="text-gray-700 mb-4">{children}</p>,
+  },
+  types: {
+    sgf: ({ value }) => (
+      <SGFViewer
+        sgfContent={value.sgfContent}
+        title={value.title}
+        boardSize={value.boardSize}
+        customSize={value.customSize}
+        showControls={value.showControls}
+        showCoordinates={value.showCoordinates}
+      />
+    ),
   },
 }
