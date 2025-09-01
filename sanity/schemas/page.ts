@@ -93,6 +93,9 @@ export default defineType({
         {
           type: 'sgf',
         },
+        {
+          type: 'gridLayout',
+        },
       ],
     }),
     defineField({

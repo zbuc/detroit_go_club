@@ -1,5 +1,6 @@
 import { PortableTextComponents } from '@portabletext/react'
 import SGFViewer from './SGFViewer'
+import GridLayout from './GridLayout'
 
 export const portableTextComponents: PortableTextComponents = {
   list: {
@@ -25,6 +26,9 @@ export const portableTextComponents: PortableTextComponents = {
         showControls={value.showControls}
         showCoordinates={value.showCoordinates}
       />
+    ),
+    gridLayout: ({ value }) => (
+      <GridLayout columns={value.columns} gap={value.gap} items={value.items} />
     ),
   },
 }
