@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import { draftMode } from 'next/headers'
 import Navigation from '@/components/Navigation'
 import { VisualEditing } from 'next-sanity'
@@ -7,11 +6,22 @@ import { client, sanityFetch, SanityLive } from '@/lib/sanity'
 import { ConditionalNavigation } from '@/components/ConditionalNavigation'
 import { ConditionalStyles } from '@/components/ConditionalStyles'
 import imageUrlBuilder from '@sanity/image-url'
+import { Outfit } from 'next/font/google'
 import './globals.css'
-import StructuredData from '@/components/StructuredData'
-import { generateWebSiteSchema } from '@/lib/structured-data'
 
-const inter = Inter({ subsets: ['latin'] })
+const outfit = Outfit({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  style: ['normal'],
+  variable: '--font-outfit',
+  display: 'swap',
+  preload: false, // Let Next.js handle selective preloading
+  adjustFontFallback: true, // Fallback font for better CLS
+})
+
+import StructuredData from '@/components/StructuredData'
+import siteSettings from 'sanity/schemas/siteSettings'
+import { generateWebSiteSchema } from '@/lib/structured-data'
 
 const builder = imageUrlBuilder(client)
 
@@ -51,7 +61,7 @@ async function getSiteSettings() {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
 
-  const structuredData = [generateWebSiteSchema()].filter(Boolean)
+  const structuredData = [generateWebSiteSchema(), siteSettings].filter(Boolean)
 
   const settings = await getSiteSettings()
   const faviconImageUrl = settings?.favicon
@@ -69,7 +79,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         {/* Conditional critical CSS for faster FCP */}
         <ConditionalStyles />
       </head>
-      <body className={inter.className}>
+      <body className={`${outfit.className} ${outfit.variable}`}>
         <ConditionalNavigation>
           <Navigation />
         </ConditionalNavigation>

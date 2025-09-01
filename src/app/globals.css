@@ -13,6 +13,12 @@
       rgb(var(--background-start-rgb));
   }
 
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-outfit);
+  }
+
   h1 {
     font-size: 175%;
     font-weight: bold;
