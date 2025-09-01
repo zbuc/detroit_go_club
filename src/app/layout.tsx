@@ -77,9 +77,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         {backgroundImageUrl && (
           <main
             style={{
-              backgroundImage: `linear-gradient(to top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%), url('${backgroundImageUrl}')`,
+              backgroundImage: `linear-gradient(to top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 80%), url('${backgroundImageUrl}')`,
             }}
-            className={`bg-cover bg-center bg-repeat w-full`}
+            className={`bg-cover bg-center bg-repeat bg-fixed w-full`}
           >
             {children}
           </main>
