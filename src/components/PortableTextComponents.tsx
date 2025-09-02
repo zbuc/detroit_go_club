@@ -1,6 +1,7 @@
 import { PortableTextComponents } from '@portabletext/react'
 import SGFViewer from './SGFViewer'
 import GridLayout from './GridLayout'
+import DualPanelContent from './DualPanelContent'
 
 export const portableTextComponents: PortableTextComponents = {
   list: {
@@ -30,5 +31,6 @@ export const portableTextComponents: PortableTextComponents = {
     gridLayout: ({ value }) => (
       <GridLayout columns={value.columns} gap={value.gap} items={value.items} />
     ),
+    dualPanel: ({ value }) => <DualPanelContent data={value} />,
   },
 }

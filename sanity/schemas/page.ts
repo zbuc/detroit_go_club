@@ -96,6 +96,9 @@ export default defineType({
         {
           type: 'gridLayout',
         },
+        {
+          type: 'dualPanel',
+        },
       ],
     }),
     defineField({

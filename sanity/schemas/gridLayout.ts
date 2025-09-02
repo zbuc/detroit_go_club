@@ -69,6 +69,7 @@ export default defineType({
               of: [
                 { type: 'block' },
                 { type: 'sgf' },
+                { type: 'dualPanel' },
                 { type: 'gridLayout' },
                 {
                   type: 'image',
