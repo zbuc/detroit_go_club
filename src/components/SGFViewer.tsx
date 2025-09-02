@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import type { BesogoInstance } from '../types/besogo'
 
 interface SGFViewerProps {
   sgfContent: string
@@ -148,7 +149,7 @@ export default function SGFViewer({
 
         setTimeout(() => {
           console.log('Calling window.besogo.autoInit()')
-          window.besogo.autoInit!()
+          window.besogo?.autoInit?.()
 
           // Check if the board was created successfully in either approach
           setTimeout(() => {
@@ -236,36 +237,47 @@ export default function SGFViewer({
                 console.log('window.besogo methods:', Object.keys(window.besogo))
 
                 // Debug BesoGo's stone functions to understand their signatures
-                const besogo = window.besogo as BesogoLib
-                if (besogo.realStone) {
-                  console.log('realStone function:', besogo.realStone.toString())
+                if (window.besogo?.realStone) {
+                  console.log('realStone function:', window.besogo.realStone.toString())
                 }
-                if (besogo.svgStone) {
-                  console.log('svgStone function:', besogo.svgStone.toString())
+                if (window.besogo?.svgStone) {
+                  console.log('svgStone function:', window.besogo.svgStone.toString())
                 }
 
                 // Check BesoGo constants
-                console.log('BesoGo BLACK_STONES:', besogo.BLACK_STONES)
-                console.log('BesoGo WHITE_STONES:', besogo.WHITE_STONES)
+                if (window.besogo && 'BLACK_STONES' in window.besogo) {
+                  console.log(
+                    'BesoGo BLACK_STONES:',
+                    (window.besogo as unknown as { BLACK_STONES: unknown }).BLACK_STONES
+                  )
+                }
+                if (window.besogo && 'WHITE_STONES' in window.besogo) {
+                  console.log(
+                    'BesoGo WHITE_STONES:',
+                    (window.besogo as unknown as { WHITE_STONES: unknown }).WHITE_STONES
+                  )
+                }
 
                 // Try multiple approaches to fix image loading
 
                 // 1. Set BesoGo's global image path to CDN
-                if (besogo.imgDir !== undefined) {
-                  besogo.imgDir = 'https://cdn.jsdelivr.net/npm/besogo@latest/img/'
+                if (window.besogo && 'imgDir' in window.besogo) {
+                  ;(window.besogo as unknown as { imgDir: string }).imgDir =
+                    'https://cdn.jsdelivr.net/npm/besogo@latest/img/'
                   console.log('Set BesoGo imgDir to CDN')
                 }
-                if (besogo.imagesPath !== undefined) {
-                  besogo.imagesPath = 'https://cdn.jsdelivr.net/npm/besogo@latest/img/'
+                if (window.besogo && 'imagesPath' in window.besogo) {
+                  ;(window.besogo as unknown as { imagesPath: string }).imagesPath =
+                    'https://cdn.jsdelivr.net/npm/besogo@latest/img/'
                   console.log('Set BesoGo imagesPath to CDN')
                 }
 
                 // BesoGo is ignoring realstones="false" - need to override realStone to use svgStone
-                if (besogo.realStone && besogo.svgStone) {
+                if (window.besogo?.realStone && window.besogo?.svgStone) {
                   console.log(
                     'Overriding realStone to use svgStone since realstones="false" is ignored'
                   )
-                  besogo.realStone = besogo.svgStone
+                  window.besogo.realStone = window.besogo.svgStone
                   console.log('Set realStone = svgStone')
                 }
 
@@ -337,38 +349,4 @@ export default function SGFViewer({
       />
     </div>
   )
-}
-
-// Add global type for window.besogo
-declare global {
-  interface Window {
-    besogo: BesogoLib
-  }
-}
-
-interface BesogoLib {
-  create?: (config: BesogoConfig) => BesogoInstance
-  autoInit?: () => void
-  parseSgf?: (sgf: string) => unknown
-  realStone?: (x: number, y: number, color: number, index: number) => SVGElement
-  svgStone?: (x: number, y: number, color: number) => SVGElement
-  BLACK_STONES?: number
-  WHITE_STONES?: number
-  imgDir?: string
-  imagesPath?: string
-}
-
-interface BesogoConfig {
-  container: HTMLElement
-  sgf?: string
-  gameRoot?: unknown
-  size?: string
-  coord?: string
-  realstones?: boolean
-  panels?: string
-  theme?: string
-}
-
-interface BesogoInstance {
-  destroy?: () => void
 }

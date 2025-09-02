@@ -16,11 +16,17 @@ export default defineType({
     defineField({
       name: 'sgfContent',
       title: 'SGF Content',
-      type: 'text',
+      type: 'string',
       description:
-        'Paste your SGF game record here. Must be valid SGF format starting with "(;" and ending with ")"',
-      placeholder: '(;FF[4]GM[1]SZ[19];B[pd];W[dd])',
-      rows: 8,
+        'Create or edit your SGF game record. Use the Visual Editor for interactive editing or Text Editor for direct SGF input.',
+      components: {
+        input: (props) => {
+          // Dynamically import the SGF editor component
+          // eslint-disable-next-line @typescript-eslint/no-require-imports
+          const SGFEditor = require('../components/SGFEditor').default
+          return SGFEditor(props)
+        },
+      },
       validation: (Rule) =>
         Rule.required()
           .min(10)
