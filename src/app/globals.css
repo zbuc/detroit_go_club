@@ -33,4 +33,9 @@
     font-size: 115%;
     font-weight: bold;
   }
+
+  a {
+    text-decoration: 2px dotted black underline !important;
+    text-underline-offset: 4px;
+  }
 }

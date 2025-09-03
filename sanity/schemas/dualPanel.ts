@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity'
+import type { PreviewProps } from 'sanity'
 
 export default defineType({
   name: 'dualPanel',
@@ -6,14 +7,6 @@ export default defineType({
   type: 'object',
   icon: () => '⊞○', // Grid and Go stone icon
   description: 'Side-by-side display of SGF game board and rich text content',
-  components: {
-    preview: (props) => {
-      // Dynamically import the preview component
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const DualPanelPreview = require('../components/DualPanelPreview').default
-      return DualPanelPreview(props)
-    },
-  },
   fields: [
     defineField({
       name: 'title',
@@ -221,6 +214,13 @@ export default defineType({
       },
     }),
   ],
+  components: {
+    preview: (props: PreviewProps) => {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const DualPanelPreview = require('../components/DualPanelPreview').default
+      return DualPanelPreview(props)
+    },
+  },
   preview: {
     select: {
       title: 'title',
@@ -230,36 +230,12 @@ export default defineType({
       layout: 'layout',
     },
     prepare({ title, sgfTitle, sgfContent, content, layout }) {
-      // Extract preview info
-      let subtitle = 'Dual Panel Content'
-
-      if (sgfContent) {
-        // Try to extract player names from SGF
-        const playerWhite = sgfContent.match(/PW\[([^\]]*)\]/)
-        const playerBlack = sgfContent.match(/PB\[([^\]]*)\]/)
-
-        if (playerWhite && playerBlack) {
-          subtitle = `${playerBlack[1]} vs ${playerWhite[1]}`
-        } else if (sgfTitle) {
-          subtitle = sgfTitle
-        } else {
-          subtitle = 'Go Game Analysis'
-        }
-      }
-
-      // Add layout info
-      const layoutText = layout === 'sgf-left' ? 'Board | Content' : 'Content | Board'
-      subtitle += ` (${layoutText})`
-
-      // Add content preview
-      if (content?.[0]?.children?.[0]?.text) {
-        const contentPreview = content[0].children[0].text.substring(0, 30)
-        subtitle += ` • ${contentPreview}...`
-      }
-
       return {
         title: title || 'Dual Panel Content',
-        subtitle,
+        sgfTitle,
+        sgfContent,
+        content,
+        layout,
         media: '⊞○',
       }
     },

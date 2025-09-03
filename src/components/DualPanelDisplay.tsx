@@ -38,27 +38,11 @@ export default function DualPanelDisplay({
 
   const SGFPanel = useCallback(
     () => (
-      <div
-        className="bg-white border border-gray-200 rounded-lg overflow-hidden"
-        style={{ height: '100%', minHeight }}
-      >
-        <div className="border-b border-gray-200 px-4 py-3 bg-gray-50">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-700">Go Board</span>
-              <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full border border-blue-200">
-                view
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div style={{ flex: 1, minHeight: 'calc(100% - 60px)' }}>
-          <SGFViewer sgfContent={sgfContent} />
-        </div>
+      <div style={{ flex: 1, minHeight: 'calc(100% - 60px)' }}>
+        <SGFViewer sgfContent={sgfContent} />
       </div>
     ),
-    [sgfContent, minHeight]
+    [sgfContent]
   )
 
   const ContentPanel = useCallback(
@@ -67,17 +51,6 @@ export default function DualPanelDisplay({
         className="bg-white border border-gray-200 rounded-lg overflow-hidden"
         style={{ height: '100%', minHeight }}
       >
-        <div className="border-b border-gray-200 px-4 py-3 bg-gray-50">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-700">Content</span>
-              <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full border border-blue-200">
-                view
-              </span>
-            </div>
-          </div>
-        </div>
-
         <div className="flex-1 overflow-auto" style={{ minHeight: 'calc(100% - 60px)' }}>
           <div className="p-4 space-y-4">
             {title && <h3 className="text-lg font-semibold text-gray-900">{title}</h3>}
