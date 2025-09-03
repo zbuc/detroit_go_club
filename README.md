@@ -8,6 +8,10 @@ A modern website for the Detroit Go Club built with Next.js and Sanity CMS.
 - **Rules Page**: Go rules and club guidelines
 - **Calendar**: Historic and future meetup listings
 - **Instagram Integration**: Direct links to @detroit_go_club
+- **Interactive Go Boards**: BesoGo integration for game viewing and analysis
+- **SGF Game Records**: Support for Smart Game Format files with interactive playback
+- **Dual Panel Layouts**: Side-by-side game board and analysis content
+- **Grid Layouts**: Flexible multi-column content organization
 - **Sanity CMS**: Easy content management for club organizers
 - **Visual Editing**: Live preview and click-to-edit functionality in Sanity Studio
 

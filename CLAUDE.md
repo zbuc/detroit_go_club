@@ -39,9 +39,17 @@ The lint-staged configuration runs `next typegen && tsc-files --noEmit` to ensur
 
 - **Sanity CMS** for content management
 - **Sanity Studio** embedded at `/studio` route
-- **sanity/schemas/** - Content type definitions (page, meetup, siteSettings)
+- **sanity/schemas/** - Content type definitions (page, meetup, siteSettings, sgf, gridLayout, dualPanel)
 - **sanity.config.ts** - Sanity Studio configuration
 - **sanity/env.ts** - Environment-specific Sanity configuration
+
+### Go Game Integration
+
+- **BesoGo Library** - Interactive Go board rendering and SGF playback
+- **SGF Support** - Smart Game Format for Go game records
+- **SGFViewer** - Frontend component for displaying Go games with controls
+- **SGFEditor** - Sanity Studio component for editing SGF content (Visual + Text modes)
+- **DualPanelDisplay** - Side-by-side Go board and content layout
 
 ### Key Integrations
 
@@ -66,6 +74,9 @@ Required environment variables:
 - **Page** - Static pages like rules, with support for homepage-specific fields
 - **Meetup** - Event information with date, location, registration
 - **Site Settings** - Global configuration (logo, Instagram handle)
+- **SGF** - Go game records with interactive board display and controls
+- **Grid Layout** - Flexible multi-column layouts for content organization
+- **Dual Panel** - Side-by-side Go board and rich text content for game analysis
 
 ### Content Styling
 
@@ -82,9 +93,31 @@ The site uses custom PortableText components for consistent content rendering:
 
 - Homepage content (`src/app/page.tsx`)
 - Rules page content (`src/app/rules/page.tsx`)
+- SGF game displays (`sgf` type)
+- Grid layouts (`gridLayout` type)
+- Dual panel content (`dualPanel` type)
 - Any other pages using PortableText
 
 **Implementation**: Custom components override default PortableText rendering to apply Tailwind CSS classes directly, ensuring proper styling regardless of CMS content structure.
+
+### Go Game Components
+
+**SGF Integration:**
+
+- **SGFViewer** (`src/components/SGFViewer.tsx`): Frontend Go board component with BesoGo integration
+- **SGFEditor** (`sanity/components/SGFEditor.tsx`): Sanity Studio editor with Visual/Text modes
+- **DualPanelDisplay** (`src/components/DualPanelDisplay.tsx`): Frontend-only dual panel layout
+- **DualPanelEditor** (`src/components/DualPanelEditor.tsx`): Sanity UI-based editor (Studio only)
+- **BesoGo Library**: Loaded from CDN with SVG stone rendering and stone image fallbacks
+
+**Key Features:**
+
+- Interactive Go board with move navigation
+- SGF format validation and editing
+- Side-by-side game analysis layouts
+- Support for multiple board sizes (9x9, 13x13, 19x19)
+- Coordinate display and game controls
+- Stone rendering optimized for web display
 
 ### Visual Editing Features
 
@@ -135,3 +168,40 @@ The project uses GitHub Actions for automated deployment:
 - Use pure CSS solutions as much as possible
 - Favor adding classNames to tags in tsx files to editing the CSS file
 - The `any` type should not be used in Typescript. Use correct types otherwise linting will fail.
+
+## Component Architecture Guidelines
+
+### Frontend vs Studio Component Separation
+
+**Critical**: Maintain strict separation between frontend and Studio components to avoid Sanity UI theme context errors:
+
+**Frontend Components** (use in `src/components/`):
+
+- **Standard HTML/CSS** with Tailwind classes
+- **No Sanity UI imports** (`@sanity/ui`)
+- **DualPanelDisplay**: Frontend-safe dual panel layout
+- **SGFViewer**: Pure frontend Go board component
+- **PortableTextComponents**: Standard React components
+
+**Studio Components** (use in `sanity/components/`):
+
+- **Sanity UI components** (`Button`, `Card`, `Flex`, etc.)
+- **Theme context available** within Sanity Studio
+- **SGFEditor**: Studio-only SGF editing interface
+- **DualPanelPreview**: Studio preview component
+- **DualPanelEditor**: Studio-only editor (not for frontend)
+
+**Error Prevention**:
+
+- Never import Sanity UI components in frontend pages
+- Use `DualPanelDisplay` for frontend, `DualPanelEditor` for Studio only
+- Check component imports when debugging theme context errors
+- Keep BesoGo integration separate for Studio vs frontend use
+
+### BesoGo Integration Notes
+
+- **CDN Loading**: BesoGo loads dynamically from `cdn.jsdelivr.net`
+- **Stone Rendering**: Uses SVG stones with image fallbacks
+- **Theme Override**: `window.besogo.realStone = window.besogo.svgStone` for consistent display
+- **SGF Validation**: Automatic format validation in schemas with proper error messages
+- **Browser Compatibility**: Tested with modern browsers, requires JavaScript enabled
