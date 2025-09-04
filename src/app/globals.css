@@ -35,7 +35,7 @@
   }
 
   a {
-    text-decoration: 2px dotted black underline !important;
+    text-decoration: 2px dotted black underline;
     text-underline-offset: 4px;
   }
 

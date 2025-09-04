@@ -149,6 +149,10 @@ export default defineType({
             ],
           },
         },
+        // Allow nested tables within the content
+        {
+          type: 'table',
+        },
         // Allow nested images within the content
         {
           type: 'image',

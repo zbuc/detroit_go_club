@@ -356,8 +356,8 @@ export default function SGFViewer({
       {title && <h3 className="sgf-title text-lg font-semibold mb-4 text-gray-800">{title}</h3>}
       <div
         ref={containerRef}
-        className="sgf-container border border-gray-300 rounded-lg overflow-hidden bg-white shadow-sm"
-        style={{ minHeight: '400px' }}
+        className={`sgf-container border border-gray-300 rounded-lg overflow-hidden bg-white shadow-sm ${className.includes('h-full') ? 'h-full' : ''}`}
+        style={className.includes('h-full') ? { height: '100%' } : { minHeight: '400px' }}
       />
     </div>
   )

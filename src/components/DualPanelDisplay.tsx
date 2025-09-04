@@ -24,7 +24,7 @@ export default function DualPanelDisplay({
   portableTextContent,
   title,
   defaultLayout = 'sgf-left',
-  minHeight = '400px',
+  minHeight = '412px',
   showLabels = true,
   allowLayoutToggle = true,
   showHeader = true,
@@ -38,20 +38,20 @@ export default function DualPanelDisplay({
 
   const SGFPanel = useCallback(
     () => (
-      <div style={{ flex: 1, minHeight: 'calc(100% - 60px)' }}>
-        <SGFViewer sgfContent={sgfContent} />
+      <div style={{ height: minHeight, overflow: 'hidden' }}>
+        <SGFViewer sgfContent={sgfContent} className="h-full" />
       </div>
     ),
-    [sgfContent]
+    [sgfContent, minHeight]
   )
 
   const ContentPanel = useCallback(
     () => (
       <div
-        className="bg-white border border-gray-200 rounded-lg overflow-hidden"
-        style={{ height: '100%', minHeight }}
+        className="bg-white border border-gray-200 rounded-lg overflow-hidden flex flex-col"
+        style={{ height: minHeight }}
       >
-        <div className="flex-1 overflow-auto" style={{ minHeight: 'calc(100% - 60px)' }}>
+        <div className="flex-1 overflow-y-auto">
           <div className="p-4 space-y-4">
             {title && <h3 className="text-lg font-semibold text-gray-900">{title}</h3>}
             <div className="prose prose-gray max-w-none">

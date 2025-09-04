@@ -3,6 +3,7 @@ import {dashboardTool} from "@sanity/dashboard"
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {presentationTool} from 'sanity/presentation'
+import {table} from '@sanity/table'
 import {schemaTypes} from './sanity/schemas'
 import {sanityConfig} from './sanity/env'
 
@@ -16,6 +17,7 @@ export default defineConfig({
 
   plugins: [
     structureTool(),
+    table(),
     presentationTool({
       resolve: {
         locations: {
