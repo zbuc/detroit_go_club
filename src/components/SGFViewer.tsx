@@ -10,6 +10,7 @@ interface SGFViewerProps {
   customSize?: string
   showControls?: boolean
   showCoordinates?: boolean
+  showVariants?: boolean | number // true = 0 (child variants), false = 2 (hidden), or specific 0-3 value
   className?: string
 }
 
@@ -20,6 +21,7 @@ export default function SGFViewer({
   customSize,
   showControls = true,
   showCoordinates = true,
+  showVariants = true, // Enable variant display by default
   className = '',
 }: SGFViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -71,10 +73,19 @@ export default function SGFViewer({
       panels.push('comment') // Move comments
       const coord = showCoordinates ? 'western' : 'none'
 
+      // Convert showVariants prop to BesoGo variant style
+      const variantStyle =
+        typeof showVariants === 'number'
+          ? showVariants
+          : showVariants === true
+            ? 0 // Show child variants with auto-markup
+            : 2 // Hide auto-markup for child variants
+
       console.log('Initializing BesoGo with config:', {
         size: size || '19',
         coord,
         panels: panels.join(' '),
+        variantStyle,
         sgfLength: sgfContent.length,
         sgfContent: sgfContent.substring(0, 100) + '...', // Show first 100 chars
       })
@@ -142,6 +153,7 @@ export default function SGFViewer({
                size="${size || '19'}"
                coord="${coord}"
                theme="wood"
+               variants="${variantStyle}"
                style="width: 100%; min-height: 400px; margin-top: 10px;">
             ${escapedSgf}
           </div>
@@ -329,7 +341,7 @@ export default function SGFViewer({
         besogoInstance.destroy?.()
       }
     }
-  }, [sgfContent, boardSize, customSize, showControls, showCoordinates])
+  }, [sgfContent, boardSize, customSize, showControls, showCoordinates, showVariants])
 
   if (!sgfContent) {
     return (
@@ -340,7 +352,7 @@ export default function SGFViewer({
   }
 
   return (
-    <div className={`sgf-viewer-wrapper my-6 ${className}`}>
+    <div className={`sgf-viewer-wrapper ${className}`}>
       {title && <h3 className="sgf-title text-lg font-semibold mb-4 text-gray-800">{title}</h3>}
       <div
         ref={containerRef}

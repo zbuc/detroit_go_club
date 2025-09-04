@@ -69,7 +69,6 @@ export default function DualPanelDisplay({
       {/* Header with layout toggle */}
       {showHeader && (
         <div className="flex justify-between items-center mb-3">
-          <h2 className="text-base font-medium text-gray-900">Dual Panel Content</h2>
           {allowLayoutToggle && (
             <div className="flex items-center gap-2">
               <span className="text-sm text-gray-500">
@@ -96,18 +95,6 @@ export default function DualPanelDisplay({
         {/* Right Panel */}
         <div className="panel-right">{layout === 'sgf-left' ? <ContentPanel /> : <SGFPanel />}</div>
       </div>
-
-      {/* Panel Labels */}
-      {showLabels && (
-        <div className="flex justify-between mt-2">
-          <span className="text-xs text-gray-500">
-            {layout === 'sgf-left' ? 'Go Board Panel' : 'Content Panel'}
-          </span>
-          <span className="text-xs text-gray-500">
-            {layout === 'sgf-left' ? 'Content Panel' : 'Go Board Panel'}
-          </span>
-        </div>
-      )}
     </div>
   )
 }

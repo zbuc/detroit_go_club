@@ -1,19 +1,18 @@
 'use client'
 
 import React from 'react'
+import { type ObjectInputProps } from 'sanity'
 import { Card, Stack, Text, Flex } from '@sanity/ui'
-import type { PreviewProps } from 'sanity'
 
-export default function DualPanelPreview(props: PreviewProps & Record<string, unknown>) {
-  // Extract data from the props based on what's prepared in the schema
-  const title = props.title as string
-  const sgfContent = props.sgfContent as string
-  const content = props.content as Array<{
-    children?: Array<{
-      text?: string
-    }>
-  }>
-  const layout = (props.layout as string) || 'sgf-left'
+// This is a preview component that shows in Sanity Studio
+// The actual DualPanelEditor will be used on the frontend
+export default function DualPanelPreview(props: ObjectInputProps) {
+  const { value } = props
+
+  const sgfContent = value?.sgf?.sgfContent
+  const content = value?.content
+  const title = value?.title || value?.sgf?.title
+  const layout = value?.layout || 'sgf-left'
 
   return (
     <Card padding={4} border radius={2}>
@@ -45,7 +44,7 @@ export default function DualPanelPreview(props: PreviewProps & Record<string, un
               </Text>
               {layout === 'sgf-left' ? (
                 <div>
-                  {sgfContent && sgfContent.length > 0 ? (
+                  {sgfContent ? (
                     <div>
                       <Text size={0} muted>
                         SGF: {sgfContent.substring(0, 40)}...
@@ -76,11 +75,13 @@ export default function DualPanelPreview(props: PreviewProps & Record<string, un
                 </div>
               ) : (
                 <div>
-                  {content && Array.isArray(content) && content.length > 0 ? (
-                    <Text size={0}>
-                      {content[0]?.children?.[0]?.text?.substring(0, 60) || 'Rich text content'}
-                      ...
-                    </Text>
+                  {content && content.length > 0 ? (
+                    <div>
+                      <Text size={0}>
+                        {content[0]?.children?.[0]?.text?.substring(0, 60) || 'Rich text content'}
+                        ...
+                      </Text>
+                    </div>
                   ) : (
                     <Text size={0} muted>
                       No content configured
@@ -99,11 +100,13 @@ export default function DualPanelPreview(props: PreviewProps & Record<string, un
               </Text>
               {layout === 'sgf-left' ? (
                 <div>
-                  {content && Array.isArray(content) && content.length > 0 ? (
-                    <Text size={0}>
-                      {content[0]?.children?.[0]?.text?.substring(0, 60) || 'Rich text content'}
-                      ...
-                    </Text>
+                  {content && content.length > 0 ? (
+                    <div>
+                      <Text size={0}>
+                        {content[0]?.children?.[0]?.text?.substring(0, 60) || 'Rich text content'}
+                        ...
+                      </Text>
+                    </div>
                   ) : (
                     <Text size={0} muted>
                       No content configured
@@ -112,7 +115,7 @@ export default function DualPanelPreview(props: PreviewProps & Record<string, un
                 </div>
               ) : (
                 <div>
-                  {sgfContent && sgfContent.length > 0 ? (
+                  {sgfContent ? (
                     <div>
                       <Text size={0} muted>
                         SGF: {sgfContent.substring(0, 40)}...
@@ -152,7 +155,7 @@ export default function DualPanelPreview(props: PreviewProps & Record<string, un
             Dual Panel Content Block
           </Text>
           <Text size={0} muted>
-            Interactive Go board with rich text content
+            Will render with DualPanelEditor on frontend
           </Text>
         </Flex>
       </Stack>
