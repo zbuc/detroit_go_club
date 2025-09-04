@@ -47,10 +47,7 @@ export default function DualPanelDisplay({
 
   const ContentPanel = useCallback(
     () => (
-      <div
-        className="bg-white border border-gray-200 rounded-lg overflow-hidden flex flex-col"
-        style={{ height: minHeight }}
-      >
+      <div className="bg-white overflow-hidden flex flex-col" style={{ height: minHeight }}>
         <div className="flex-1 overflow-y-auto">
           <div className="p-4 space-y-4">
             {title && <h3 className="text-lg font-semibold text-gray-900">{title}</h3>}
@@ -65,28 +62,9 @@ export default function DualPanelDisplay({
   )
 
   return (
-    <div className={`dual-panel-display ${className}`}>
-      {/* Header with layout toggle */}
-      {showHeader && (
-        <div className="flex justify-between items-center mb-3">
-          {allowLayoutToggle && (
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-500">
-                {layout === 'sgf-left' ? 'Board | Content' : 'Content | Board'}
-              </span>
-              <button
-                onClick={toggleLayout}
-                className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                title={`Move Go board to ${layout === 'sgf-left' ? 'right' : 'left'}`}
-                aria-label={`Move Go board panel to ${layout === 'sgf-left' ? 'right' : 'left'}`}
-              >
-                {layout === 'sgf-left' ? '→' : '←'}
-              </button>
-            </div>
-          )}
-        </div>
-      )}
-
+    <div
+      className={`dual-panel-display bg-gray-50 rounded-lg border border-gray-200 px-4 ${className}`}
+    >
       {/* Two-panel layout using CSS Grid */}
       <div className="grid grid-cols-2 gap-4" style={{ minHeight }}>
         {/* Left Panel */}
