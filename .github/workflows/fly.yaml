@@ -17,6 +17,7 @@ on:
       - 'sanity.config.ts'
       - 'fly.toml'
       - '.env.local.example'
+      - '.github/**'
 jobs:
   lint:
     name: Lint & Type Check
