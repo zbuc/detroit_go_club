@@ -205,3 +205,159 @@ The project uses GitHub Actions for automated deployment:
 - **Theme Override**: `window.besogo.realStone = window.besogo.svgStone` for consistent display
 - **SGF Validation**: Automatic format validation in schemas with proper error messages
 - **Browser Compatibility**: Tested with modern browsers, requires JavaScript enabled
+
+## Performance & SSR/CSR Optimization
+
+### Progressive Enhancement Strategy
+
+This project implements a sophisticated SSR/CSR pattern for optimal performance and SEO while maintaining rich interactivity:
+
+**Server-Side Rendering (SSR) Foundation:**
+
+- Complete HTML content rendered server-side for instant loading and SEO
+- Complete content rendered with navigation and semantic HTML
+- Works perfectly without JavaScript (progressive enhancement)
+- Proper meta tags, structured data, and accessibility features
+
+**Client-Side Rendering (CSR) Enhancements:**
+
+- Interactive features layer on top of SSR foundation
+- Dynamic animations and responsive behaviors
+- Real-time content updates via SanityLive
+- BesoGo Go board interactivity for SGF content
+
+### Font Loading Optimization
+
+Critical font strategy to prevent layout shifts and FOUT:
+
+````typescript
+// layout.tsx - Font configuration
+const outfit = Outfit({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  style: ['normal'],
+  variable: '--font-outfit',
+  display: 'block',        // Prevents font swap flash
+  preload: true,           // Preload critical fonts
+  adjustFontFallback: true // Auto-adjust fallback metrics
+})
+
+Key Strategies:
+- Blocking Display: Uses display: 'block' to prevent font swap flash
+- CSS Variables: Custom properties with explicit Safari fallbacks
+- Preconnect Headers: DNS prefetch and preconnect to font CDNs
+- Fallback Fonts: Explicit fallback fonts for CSS variable compatibility
+
+Basic Image Optimization
+
+Simple Sanity image optimization for minimal image usage:
+
+```typescript
+// Basic image URL generation
+const builder = imageUrlBuilder(client)
+const imageUrl = builder.image(image).url()
+````
+
+For sites with minimal image usage:
+
+- Use Sanity's auto-optimization (format, quality)
+- No complex lazy loading patterns needed
+- Basic responsive images via Sanity transforms
+
+Hydration-Safe Component Patterns
+
+Components designed to prevent hydration mismatches:
+
+// ClientInitializer.tsx - Post-hydration setup
+export default function ClientInitializer() {
+useEffect(() => {
+setTimeout(() => {
+document.documentElement.classList.add('js-enabled')
+}, 0)
+}, [])
+return null
+}
+
+// ConditionalStyles.tsx - Consistent SSR/CSR rendering
+export function ConditionalStyles() {
+const [isHydrated, setIsHydrated] = useState(false)
+
+    // Always render the same content during SSR and initial hydration
+    if (!isHydrated) {
+      return <style dangerouslySetInnerHTML={{ __html: criticalCSS }} />
+    }
+
+    // Post-hydration: Enhanced styles
+    return <style dangerouslySetInnerHTML={{ __html: enhancedCSS }} />
+
+}
+
+Key Patterns:
+
+- Consistent Initial Render: Same content during SSR and initial hydration
+- Post-Hydration Enhancement: Progressive feature activation after hydration
+- CSS Class Gating: .js-enabled class for JavaScript-dependent styles
+- State Initialization: Proper useState initialization to match server state
+
+Progressive Enhancement for Interactive Content
+
+SSR → CSR enhancement pattern for Go board and interactive features:
+
+```typescript
+// SGF content with progressive enhancement
+export default function SGFContent({ sgf, description }) {
+  return (
+    <>
+      {/* SSR Foundation - Text description always renders */}
+      <div className="js-fallback">
+        <p>Game Record: {sgf.title}</p>
+        <div>{description}</div>
+      </div>
+
+      {/* CSR Enhancement - Interactive Go board */}
+      <SGFViewer sgf={sgf} />
+    </>
+  )
+}
+```
+
+Enhancement Strategy:
+
+- SSR Foundation: Essential content renders without JavaScript
+- CSR Enhancement: BesoGo boards and interactivity added progressively
+- Graceful Fallback: Go content remains accessible if JavaScript fails
+
+Mobile Detection for Touch Interactions
+
+Simple mobile detection for Go board touch handling:
+
+```typescript
+// Inline mobile detection (no separate utility needed)
+const isMobile =
+  typeof window !== 'undefined' && (window.innerWidth < 768 || 'ontouchstart' in window)
+```
+
+Mobile Considerations:
+
+- Touch-friendly Go board interactions
+- Responsive layouts for mobile screens
+- No complex image optimization needed
+
+Critical CSS Strategy
+
+Optimized CSS delivery for fast First Contentful Paint:
+
+- Inline Critical CSS: Above-the-fold styles inlined via ConditionalStyles
+- Font Variable Fallbacks: Explicit fallback fonts for Safari compatibility
+- Layout Containment: Prevent reflow during font loading
+- Transition Strategy: Fade-in animations to hide hydration shifts
+
+Implementation Checklist
+
+- Configure fonts with display: 'block' and proper fallbacks
+- Implement ClientInitializer for post-hydration setup
+- Create ConditionalStyles component for SSR/CSR consistency
+- Create SSR → CSR enhancement pattern for Go boards and interactive content
+- Add .js-enabled/.js-fallback classes for progressive enhancement
+- Ensure BesoGo integration works with SSR/CSR patterns
+- Configure proper DNS prefetch/preconnect headers

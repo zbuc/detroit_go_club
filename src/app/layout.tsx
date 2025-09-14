@@ -5,6 +5,7 @@ import { VisualEditing } from 'next-sanity'
 import { client, sanityFetch, SanityLive } from '@/lib/sanity'
 import { ConditionalNavigation } from '@/components/ConditionalNavigation'
 import { ConditionalStyles } from '@/components/ConditionalStyles'
+import ClientInitializer from '@/components/ClientInitializer'
 import imageUrlBuilder from '@sanity/image-url'
 import { Outfit } from 'next/font/google'
 import './globals.css'
@@ -14,9 +15,9 @@ const outfit = Outfit({
   weight: ['400', '500'],
   style: ['normal'],
   variable: '--font-outfit',
-  display: 'swap',
-  preload: false, // Let Next.js handle selective preloading
-  adjustFontFallback: true, // Fallback font for better CLS
+  display: 'block', // Prevents font swap flash
+  preload: true, // Preload critical fonts
+  adjustFontFallback: true, // Auto-adjust fallback metrics
 })
 
 import StructuredData from '@/components/StructuredData'
@@ -93,6 +94,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           </main>
         )}
         {!backgroundImageUrl && <main>{children}</main>}
+        <ClientInitializer />
         {isEnabled && <VisualEditing />}
         <SanityLive />
       </body>

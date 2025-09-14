@@ -14,14 +14,16 @@ function generateSlug(text: string): string {
 
 export const portableTextComponents: PortableTextComponents = {
   list: {
-    bullet: ({ children }) => <ul className="list-disc list-inside space-y-2 my-4">{children}</ul>,
+    bullet: ({ children }) => (
+      <ul className="list-disc list-outside space-y-3 my-4 ml-6">{children}</ul>
+    ),
     number: ({ children }) => (
-      <ol className="list-decimal list-inside space-y-2 my-4">{children}</ol>
+      <ol className="list-decimal list-outside space-y-3 my-4 ml-6">{children}</ol>
     ),
   },
   listItem: {
-    bullet: ({ children }) => <li className="text-gray-700">{children}</li>,
-    number: ({ children }) => <li className="text-gray-700">{children}</li>,
+    bullet: ({ children }) => <li className="text-gray-700 pl-2">{children}</li>,
+    number: ({ children }) => <li className="text-gray-700 pl-2">{children}</li>,
   },
   block: {
     normal: ({ children }) => <p className="text-gray-700 mb-4">{children}</p>,

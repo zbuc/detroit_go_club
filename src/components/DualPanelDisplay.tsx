@@ -1,7 +1,5 @@
-'use client'
-
-import React, { useState, useCallback } from 'react'
-import SGFViewer from './SGFViewer'
+import React from 'react'
+import DualPanelClient from './DualPanelClient'
 import { PortableText, type PortableTextBlock } from '@portabletext/react'
 import { portableTextComponents } from './PortableTextComponents'
 
@@ -17,8 +15,6 @@ interface DualPanelDisplayProps {
   className?: string
 }
 
-type PanelLayout = 'sgf-left' | 'sgf-right'
-
 export default function DualPanelDisplay({
   sgfContent,
   portableTextContent,
@@ -30,48 +26,66 @@ export default function DualPanelDisplay({
   showHeader = true,
   className = '',
 }: DualPanelDisplayProps) {
-  const [layout, setLayout] = useState<PanelLayout>(defaultLayout)
+  const boardSize = sgfContent?.includes('SZ[13]')
+    ? '13'
+    : sgfContent?.includes('SZ[9]')
+      ? '9'
+      : '19'
 
-  const toggleLayout = useCallback(() => {
-    setLayout(layout === 'sgf-left' ? 'sgf-right' : 'sgf-left')
-  }, [layout])
+  return (
+    <div className={`dual-panel-wrapper ${className}`}>
+      {/* SSR Foundation - Basic content layout */}
+      <div className="js-fallback">
+        <div className="bg-gray-50 rounded-lg border border-gray-200 p-4 space-y-6">
+          <div className="bg-white rounded border p-4">
+            {title && <h3 className="text-lg font-semibold text-gray-900 mb-4">{title}</h3>}
 
-  const SGFPanel = useCallback(
-    () => (
-      <div style={{ height: minHeight, overflow: 'hidden' }}>
-        <SGFViewer sgfContent={sgfContent} className="h-full" />
-      </div>
-    ),
-    [sgfContent, minHeight]
-  )
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Go Game Info */}
+              <div>
+                <h4 className="font-semibold text-gray-800 mb-2">Go Game Record</h4>
+                <div className="text-sm text-gray-600 space-y-1">
+                  <p>
+                    Board Size: {boardSize}×{boardSize}
+                  </p>
+                  <p className="text-xs">Enable JavaScript for interactive board</p>
+                </div>
 
-  const ContentPanel = useCallback(
-    () => (
-      <div className="bg-white overflow-hidden flex flex-col" style={{ height: minHeight }}>
-        <div className="flex-1 overflow-y-auto">
-          <div className="p-4 space-y-4">
-            {title && <h3 className="text-lg font-semibold text-gray-900">{title}</h3>}
-            <div className="prose prose-gray max-w-none">
-              <PortableText value={portableTextContent} components={portableTextComponents} />
+                <details className="mt-4">
+                  <summary className="cursor-pointer text-sm text-blue-600 hover:text-blue-800">
+                    View SGF Content
+                  </summary>
+                  <pre className="text-xs bg-gray-100 p-2 mt-2 rounded overflow-x-auto font-mono">
+                    {sgfContent}
+                  </pre>
+                </details>
+              </div>
+
+              {/* Content */}
+              <div>
+                <h4 className="font-semibold text-gray-800 mb-2">Analysis</h4>
+                <div className="prose prose-gray prose-sm max-w-none">
+                  <PortableText value={portableTextContent} components={portableTextComponents} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    ),
-    [portableTextContent, title, minHeight]
-  )
 
-  return (
-    <div
-      className={`dual-panel-display bg-gray-50 rounded-lg border border-gray-200 px-4 ${className}`}
-    >
-      {/* Two-panel layout using CSS Grid */}
-      <div className="grid grid-cols-2 gap-4" style={{ minHeight }}>
-        {/* Left Panel */}
-        <div className="panel-left">{layout === 'sgf-left' ? <SGFPanel /> : <ContentPanel />}</div>
-
-        {/* Right Panel */}
-        <div className="panel-right">{layout === 'sgf-left' ? <ContentPanel /> : <SGFPanel />}</div>
+      {/* CSR Enhancement - Interactive dual panel with Go board */}
+      <div className="js-enhanced">
+        <DualPanelClient
+          sgfContent={sgfContent}
+          portableTextContent={portableTextContent}
+          title={title}
+          defaultLayout={defaultLayout}
+          minHeight={minHeight}
+          showLabels={showLabels}
+          allowLayoutToggle={allowLayoutToggle}
+          showHeader={showHeader}
+          className={className}
+        />
       </div>
     </div>
   )

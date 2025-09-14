@@ -1,6 +1,7 @@
 import { sanityFetch } from '@/lib/sanity'
 import { SiteSettings } from '@/types'
 import Link from 'next/link'
+import Image from 'next/image'
 import imageUrlBuilder from '@sanity/image-url'
 import { client } from '@/lib/sanity'
 
@@ -33,13 +34,17 @@ export default async function Navigation() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="text-sm sm:text-xl md:text-2xl font-bold text-gray-900">
-            <img
-              src={
-                typeof siteSettings?.logo === 'object' ? builder.image(siteSettings.logo).url() : ''
-              }
-              alt="Detroit Go Club Logo"
-              className="h-8 w-auto sm:h-10 lg:h-12"
-            />
+            {typeof siteSettings?.logo === 'object' ? (
+              <Image
+                src={builder.image(siteSettings.logo).url()}
+                alt="Detroit Go Club Logo"
+                width={48}
+                height={48}
+                className="h-8 w-auto sm:h-10 lg:h-12"
+              />
+            ) : (
+              <span>Detroit Go Club</span>
+            )}
           </Link>
 
           <div className="flex space-x-2 sm:space-x-4 lg:space-x-8">
