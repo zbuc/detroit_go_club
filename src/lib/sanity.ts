@@ -4,8 +4,8 @@ import { defineLive } from 'next-sanity'
 export const token = process.env.SANITY_API_READ_TOKEN
 
 export const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'qipp2pwx',
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
   apiVersion: '2023-05-03',
   token: token,
   useCdn: false, // Disable CDN for draft mode validation
