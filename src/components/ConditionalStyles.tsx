@@ -7,8 +7,10 @@ export function ConditionalStyles() {
   const pathname = usePathname()
   const isStudioRoute = pathname?.startsWith('/studio')
   const [isHydrated, setIsHydrated] = useState(false)
+  const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
+    setIsClient(true)
     setIsHydrated(true)
 
     const body = document.body
@@ -18,6 +20,24 @@ export function ConditionalStyles() {
       body.className = ''
     }
   }, [isStudioRoute])
+
+  // Return SSR-safe styles before client-side hydration
+  if (!isClient) {
+    return (
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            :root {
+              --foreground-rgb: 0, 0, 0;
+              --background-rgb: 255, 255, 255;
+            }
+            .js-fallback { display: block; }
+            .js-enhanced { display: none; }
+          `,
+        }}
+      />
+    )
+  }
 
   // Always render the same content during SSR and initial hydration
   if (!isHydrated) {
